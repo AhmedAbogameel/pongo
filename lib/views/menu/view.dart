@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_adoption/constants.dart';
+import 'package:pet_adoption/views/addPet/view.dart';
+import 'package:pet_adoption/views/adoption/view.dart';
 
 class MenuView extends StatefulWidget {
   @override
@@ -8,7 +10,6 @@ class MenuView extends StatefulWidget {
 }
 
 class _MenuViewState extends State<MenuView> {
-  int selectedMenuIndex = 0;
 
   List<String> menuItems = [
     'Adoption',
@@ -29,16 +30,16 @@ class _MenuViewState extends State<MenuView> {
   ];
 
   List<Widget> menuNavigator = [
-
+    AdoptionView(),
+    Container(),
+    AddPetView(),
   ];
 
   Widget buildMenuRow(int index) {
     return InkWell(
-      onTap: () {
-        setState(() {
-           selectedMenuIndex = index;
-           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=> menuNavigator[index]));
-        });
+      borderRadius: BorderRadius.circular(20),
+      onTap: index == 1 || index == 4 ? null : () {
+        Navigator.of(context).push(MaterialPageRoute(builder: (_)=> menuNavigator[index]));
       },
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 24.0),

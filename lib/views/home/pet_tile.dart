@@ -12,19 +12,16 @@ class PetCard extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 10),
         child: Row(
           children: [
-            Hero(
-              tag: '1',
-              child: Container(
-                height: sizeFromHeight(context, 4),
-                width: sizeFromWidth(context, 3),
-                decoration: BoxDecoration(
-                  boxShadow: [BoxShadow(color: kPrimaryColor, blurRadius: 5)],
-                  borderRadius: BorderRadius.circular(25),
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          'https://e7.pngegg.com/pngimages/665/236/png-clipart-cute-dog-puppy-dog.png'),
-                      fit: BoxFit.fitHeight),
-                ),
+            Container(
+              height: sizeFromHeight(context, 4),
+              width: sizeFromWidth(context, 3),
+              decoration: BoxDecoration(
+                boxShadow: [BoxShadow(color: kPrimaryColor, blurRadius: 5)],
+                borderRadius: BorderRadius.circular(25),
+                image: DecorationImage(
+                    image: NetworkImage(
+                        'https://e7.pngegg.com/pngimages/665/236/png-clipart-cute-dog-puppy-dog.png'),
+                    fit: BoxFit.fitHeight),
               ),
             ),
             Stack(

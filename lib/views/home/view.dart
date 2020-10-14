@@ -72,7 +72,7 @@ class _HomeViewState extends State<HomeView> {
                         itemBuilder: (_, listIndex) =>
                             AnimationConfiguration.staggeredList(
                           position: listIndex,
-                          duration: const Duration(milliseconds: 375),
+                          duration: const Duration(seconds: 1),
                           child: SlideAnimation(
                             verticalOffset: 50.0,
                             child: FadeInAnimation(
