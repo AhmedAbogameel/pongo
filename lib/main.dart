@@ -21,16 +21,19 @@ class MyApp extends StatelessWidget {
         canvasColor: kBGColor,
         fontFamily: 'Tajawal',
         textTheme: TextTheme(
+          // ignore: deprecated_member_use
           title: TextStyle(
             color: kAccentColor,
             fontSize: 25,
             fontWeight: FontWeight.w900,
           ),
+          // ignore: deprecated_member_use
           subtitle: TextStyle(
             color: kAccentColor.withOpacity(0.5),
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
+          // ignore: deprecated_member_use
           body1: TextStyle(
             color: kAccentColor.withOpacity(0.8),
             fontSize: 15,

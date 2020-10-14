@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pet_adoption/constants.dart';
 import 'package:pet_adoption/widgets/profile_avatar.dart';
 
 Widget appBar(Function menuCallBack){

@@ -36,9 +36,13 @@ class _HomeViewState extends State<HomeView> {
               height: sizeFromHeight(context, 1),
               child: Column(
                 children: [
-                  inputField((String value) {
-                    SystemChrome.setEnabledSystemUIOverlays([]);
-                  }),
+                  inputField(
+                    hint: 'Search',
+                    icon: FontAwesomeIcons.search,
+                    onSubmit: (String value) {
+                      SystemChrome.setEnabledSystemUIOverlays([]);
+                    },
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [

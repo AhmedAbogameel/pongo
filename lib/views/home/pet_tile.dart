@@ -34,14 +34,17 @@ class PetCard extends StatelessWidget {
                     children: [
                       Text(
                         'Title',
+                        // ignore: deprecated_member_use
                         style: Theme.of(context).textTheme.title,
                       ),
                       Text(
                         'Name',
+                        // ignore: deprecated_member_use
                         style: Theme.of(context).textTheme.subtitle,
                       ),
                       Text(
                         '10 - 15 year',
+                        // ignore: deprecated_member_use
                         style: Theme.of(context).textTheme.body1,
                       ),
                     ],

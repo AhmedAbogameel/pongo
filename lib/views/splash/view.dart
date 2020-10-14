@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pet_adoption/constants.dart';
-import 'package:pet_adoption/views/home/view.dart';
 import 'package:pet_adoption/views/menu/menu_frame.dart';
 
 class SplashView extends StatefulWidget {
@@ -24,10 +22,11 @@ class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kAccentColor,
       body: Center(
         child: FadeInImage(
-          fadeInDuration: Duration(milliseconds: 500),
-          fadeOutDuration: Duration(milliseconds: 500),
+          fadeInDuration: Duration(milliseconds: 1000),
+          fadeOutDuration: Duration(milliseconds: 1000),
           fadeInCurve: Curves.easeInSine,
           fadeOutCurve: Curves.easeOutSine,
           placeholder: AssetImage(logoLocation),

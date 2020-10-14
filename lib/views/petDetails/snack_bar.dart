@@ -7,11 +7,11 @@ void showSnackBar(ctx, {@required title, @required onPressed}) {
     SnackBar(
       content: Text(
         title,
+        // ignore: deprecated_member_use
         style: Theme.of(ctx).textTheme.subtitle,
       ),
       backgroundColor: kBGColor,
       elevation: 5,
-      //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       action: SnackBarAction(
         label: 'Undo',
         textColor: kAccentColor,

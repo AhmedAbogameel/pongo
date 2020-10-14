@@ -25,6 +25,7 @@ class _PetDetailsViewState extends State<PetDetailsView> {
               OwnerTile(),
               Text(
                 'My job requires moving to another country',
+                // ignore: deprecated_member_use
                 style: Theme.of(context).textTheme.body1,
                 textAlign: TextAlign.start,
               ),

@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:pet_adoption/constants.dart';
 import 'package:pet_adoption/views/home/pet_tile.dart';
-import 'package:pet_adoption/widgets/pop_button.dart';
 
 class AdoptionView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: PopButton(
-          brightness: false,
-        ),
-        elevation: 0.0,
+        // leading: PopButton(
+        //   brightness: false,
+        // ),
+        //elevation: 0.0,
+        iconTheme: IconThemeData(color: kAccentColor,size: 30),
         centerTitle: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: kBGColor,
         title: Text(
           'My Adoption List',
-          style: Theme.of(context).textTheme.subtitle,
+          // ignore: deprecated_member_use
+          style: Theme.of(context).textTheme.title,
         ),
       ),
       body: AnimationLimiter(
