@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import '../../constants.dart';
 
 class SquaredButton extends StatelessWidget {
-  final int listIndex,tabIndex;
+  final int petIndex,tabIndex;
   final Function onTap;
   final IconData icon;
-  SquaredButton({this.tabIndex,this.icon,this.listIndex,this.onTap});
+  SquaredButton({this.tabIndex,this.icon,this.petIndex,this.onTap});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -16,14 +16,14 @@ class SquaredButton extends StatelessWidget {
             height: sizeFromHeight(context, 8),
             margin: EdgeInsets.all(10),
             alignment: Alignment.center,
-            child: Icon(icon,color: tabIndex == listIndex ? kBGColor : kPrimaryColor,size: 50,),
+            child: Icon(icon,color: tabIndex == petIndex ? kBGColor : kPrimaryColor,size: 50,),
             decoration: BoxDecoration(
-              boxShadow: [BoxShadow(color: tabIndex == listIndex
+              boxShadow: [BoxShadow(color: tabIndex == petIndex
                   ? kAccentColor
                   : Colors.white,
                 blurRadius: 3,
               ),],
-                color: tabIndex == listIndex
+                color: tabIndex == petIndex
                     ? kPrimaryColor
                     : Colors.white,
                 borderRadius: BorderRadius.circular(25),),
@@ -33,7 +33,7 @@ class SquaredButton extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 50),
           child: Text(
-            listIndex == 0 ? 'Cats' : 'Dogs',
+            petIndex == 0 ? 'Cats' : 'Dogs',
             style: TextStyle(fontSize: 20,color: kPrimaryColor,fontWeight: FontWeight.w900),
           ),
         ),

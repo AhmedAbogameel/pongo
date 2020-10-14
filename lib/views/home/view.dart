@@ -39,23 +39,30 @@ class _HomeViewState extends State<HomeView> {
                   inputField((String value) {
                     SystemChrome.setEnabledSystemUIOverlays([]);
                   }),
-                  Expanded(
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 2,
-                      itemBuilder: (_, listIndex) => SquaredButton(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SquaredButton(
+                        petIndex: 0,
                         tabIndex: tabIndex,
-                        listIndex: listIndex,
-                        icon: listIndex == 0
-                            ? FontAwesomeIcons.cat
-                            : FontAwesomeIcons.dog,
+                        icon: FontAwesomeIcons.cat,
                         onTap: () {
                           setState(() {
-                            tabIndex = listIndex;
+                            tabIndex = 0;
                           });
                         },
                       ),
-                    ),
+                      SquaredButton(
+                        icon: FontAwesomeIcons.dog,
+                        onTap: () {
+                          setState(() {
+                            tabIndex = 1;
+                          });
+                        },
+                        tabIndex: tabIndex,
+                        petIndex: 1,
+                      )
+                    ],
                   ),
                   Expanded(
                     flex: 3,
