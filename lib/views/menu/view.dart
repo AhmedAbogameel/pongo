@@ -12,7 +12,7 @@ class _MenuViewState extends State<MenuView> {
 
   List<String> menuItems = [
     'Adoption',
-    'Donation',
+    'Donation \n(Coming Soon)',
     'Add pet',
     'Favorites',
     'Messages \n(Coming Soon)',

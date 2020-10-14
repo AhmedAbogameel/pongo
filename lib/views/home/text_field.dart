@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pet_adoption/constants.dart';
 
 Widget inputField(Function(String) onSubmitted){
   return Padding(
@@ -18,7 +19,7 @@ Widget inputField(Function(String) onSubmitted){
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25),
-            borderSide: BorderSide(color: Colors.black,width: 0.3),
+            borderSide: BorderSide(color: kPrimaryColor,width: 0.3),
           )
       ),
       onSubmitted: onSubmitted,

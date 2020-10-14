@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pet_adoption/constants.dart';
+import 'package:pet_adoption/widgets/profile_avatar.dart';
 
 Widget appBar(Function menuCallBack){
   return  AppBar(
@@ -16,12 +18,7 @@ Widget appBar(Function menuCallBack){
       ],
     ),
     actions: [
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: CircleAvatar(
-          backgroundImage: AssetImage('assets/images/logo.png'),
-        ),
-      )
+      ProfileAvatar(),
     ],
     backgroundColor: Colors.transparent,
     leading: IconButton(

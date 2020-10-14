@@ -33,8 +33,8 @@ class _MenuFrameState extends State<MenuFrame>
         AnimatedPositioned(
           top: menuIsOpen ? 75 : 0,
           bottom: menuIsOpen ? 75 : 0,
-          right: menuIsOpen ? -sizeFromWidth(context, 8.2) : 0,
-          left:  menuIsOpen ? sizeFromWidth(context, 1.8) : 0,
+          right: menuIsOpen ? -sizeFromWidth(context, 2) : 0,
+          left:  menuIsOpen ? sizeFromWidth(context, 2) : 0,
           child: ClipRRect(
               borderRadius: BorderRadius.horizontal(left: Radius.circular(menuIsOpen ? 30 : 0 )),
               child: ScaleTransition(scale: _scaleTransition,child: GestureDetector(

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 const String logoLocation = 'assets/images/logo.png';
 
-const Color kPrimaryColor = Color.fromRGBO(170, 180, 190,1);
-const Color kAccentColor =  Color.fromRGBO(10, 117, 103,1);
+const Color kPrimaryColor = Color.fromRGBO(189, 200, 204, 1);
+const Color kAccentColor =  Color.fromRGBO(56, 97, 96, 1);
+const Color kBGColor = Color.fromRGBO(244, 244, 244, 1);
 
 double sizeFromHeight(BuildContext context, double fraction,
     {bool removeAppBarSize = true}) {

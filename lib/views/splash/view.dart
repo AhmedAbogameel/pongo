@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pet_adoption/constants.dart';
 import 'package:pet_adoption/views/home/view.dart';
-import 'package:pet_adoption/widgets/menu_frame.dart';
+import 'package:pet_adoption/views/menu/menu_frame.dart';
 
 class SplashView extends StatefulWidget {
   @override
@@ -14,7 +14,6 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIOverlays([]);
     Timer(
       Duration(seconds: 3),
         ()=> Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=> MenuFrame()))
