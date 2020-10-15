@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_adoption/constants.dart';
 import 'package:pet_adoption/views/home/squared_button.dart';
 import 'package:pet_adoption/views/home/text_field.dart';
+import 'package:pet_adoption/widgets/confirm_button.dart';
+import 'package:pet_adoption/widgets/default_app_bar.dart';
 
 class AddPetView extends StatefulWidget {
   @override
@@ -20,14 +22,11 @@ class _AddPetViewState extends State<AddPetView> {
     // ignore: deprecated_member_use
     final titleStyle = Theme.of(context).textTheme.subtitle;
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
+      appBar: defaultAppBar(context, title: 'Add Pet'),
       body: Form(
         key: _globalKey,
         child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 25),
+          padding: EdgeInsets.fromLTRB(25,25,25,0),
           children: [
             GestureDetector(
               child: CircleAvatar(
@@ -158,27 +157,15 @@ class _AddPetViewState extends State<AddPetView> {
                 ),
               ],
             ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 15),
-              height: 50,
-              child: RaisedButton(
-                child: Text('Add'),
-                color: kAccentColor,
-                colorBrightness: Brightness.dark,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                onPressed: petIndex == null || gender == null
-                    ? null
-                    : () {
-                        if (_globalKey.currentState.validate()) {
-                          SystemChrome.setEnabledSystemUIOverlays([]);
-                          _globalKey.currentState.save();
-                          // petIndex , gender
-                        }
-                      },
-              ),
-            )
+            ConfirmButton(onPressed: petIndex == null || gender == null
+                ? null
+                : () {
+              if (_globalKey.currentState.validate()) {
+                SystemChrome.setEnabledSystemUIOverlays([]);
+                _globalKey.currentState.save();
+                // petIndex , gender
+              }
+            },)
           ],
         ),
       ),

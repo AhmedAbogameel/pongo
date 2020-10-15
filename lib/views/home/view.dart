@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_adoption/constants.dart';
-import 'package:pet_adoption/views/home/pet_tile.dart';
 import 'package:pet_adoption/views/home/squared_button.dart';
 import 'package:pet_adoption/views/home/text_field.dart';
+import 'package:pet_adoption/widgets/animated_list_view.dart';
 import 'package:pet_adoption/widgets/app_bar.dart';
 
 class HomeView extends StatefulWidget {
@@ -28,67 +27,52 @@ class _HomeViewState extends State<HomeView> {
       }),
       body: AbsorbPointer(
         absorbing: widget.menuOpen,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 25),
-          child: SingleChildScrollView(
-            physics: NeverScrollableScrollPhysics(),
-            child: Container(
-              height: sizeFromHeight(context, 1),
-              child: Column(
-                children: [
-                  inputField(
+        child: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          child: Container(
+            height: sizeFromHeight(context, 1),
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: inputField(
                     hint: 'Search',
                     icon: FontAwesomeIcons.search,
                     onSubmit: (String value) {
                       SystemChrome.setEnabledSystemUIOverlays([]);
                     },
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SquaredButton(
-                        petIndex: 0,
-                        tabIndex: tabIndex,
-                        icon: FontAwesomeIcons.cat,
-                        onTap: () {
-                          setState(() {
-                            tabIndex = 0;
-                          });
-                        },
-                      ),
-                      SquaredButton(
-                        icon: FontAwesomeIcons.dog,
-                        onTap: () {
-                          setState(() {
-                            tabIndex = 1;
-                          });
-                        },
-                        tabIndex: tabIndex,
-                        petIndex: 1,
-                      )
-                    ],
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: AnimationLimiter(
-                      child: ListView.builder(
-                        itemCount: 1,
-                        itemBuilder: (_, listIndex) =>
-                            AnimationConfiguration.staggeredList(
-                          position: listIndex,
-                          duration: const Duration(seconds: 1),
-                          child: SlideAnimation(
-                            verticalOffset: 50.0,
-                            child: FadeInAnimation(
-                              child: PetCard(),
-                            ),
-                          ),
-                        ),
-                      ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SquaredButton(
+                      petIndex: 0,
+                      tabIndex: tabIndex,
+                      icon: FontAwesomeIcons.cat,
+                      onTap: () {
+                        setState(() {
+                          tabIndex = 0;
+                        });
+                      },
                     ),
-                  ),
-                ],
-              ),
+                    SquaredButton(
+                      icon: FontAwesomeIcons.dog,
+                      onTap: () {
+                        setState(() {
+                          tabIndex = 1;
+                        });
+                      },
+                      tabIndex: tabIndex,
+                      petIndex: 1,
+                    )
+                  ],
+                ),
+                Expanded(
+                  flex: 3,
+                  child: AnimatedListView(),
+                ),
+              ],
             ),
           ),
         ),

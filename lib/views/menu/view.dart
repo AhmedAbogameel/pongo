@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_adoption/constants.dart';
 import 'package:pet_adoption/views/addPet/view.dart';
 import 'package:pet_adoption/views/adoption/view.dart';
+import 'package:pet_adoption/views/favourite/view.dart';
+import 'package:pet_adoption/views/profile/view.dart';
 
 class MenuView extends StatefulWidget {
   @override
@@ -33,6 +35,9 @@ class _MenuViewState extends State<MenuView> {
     AdoptionView(),
     Container(),
     AddPetView(),
+    FavouriteView(),
+    Container(),
+    ProfileView(),
   ];
 
   Widget buildMenuRow(int index) {
