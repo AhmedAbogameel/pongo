@@ -13,6 +13,7 @@ class AddPetView extends StatefulWidget {
 class _AddPetViewState extends State<AddPetView> {
   int petIndex;
   String gender;
+  int descriptionLength = 0;
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -36,37 +37,65 @@ class _AddPetViewState extends State<AddPetView> {
               ),
               onDoubleTap: () {},
             ),
-            Text('Name',style: titleStyle,),
+            Text(
+              'Name',
+              style: titleStyle,
+            ),
             inputField(
                 textInputType: TextInputType.name,
                 onSaved: (v) {},
-              validator: (value){
-                if(value.isEmpty){return 'Please enter your pet Name';}
-              }
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter your pet Name';
+                  }
+                }),
+            Text(
+              'Kind',
+              style: titleStyle,
             ),
-            Text('Kind',style: titleStyle,),
+            inputField(
+                textInputType: TextInputType.name,
+                onSaved: (v) {},
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter your pet kind';
+                  }
+                }),
+            Text(
+              'Age',
+              style: titleStyle,
+            ),
+            inputField(
+                textInputType: TextInputType.number,
+                onSaved: (v) {},
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter your pet age';
+                  } else if (value.contains('.') ||
+                      value.contains(',') ||
+                      value.contains('-')) {
+                    return 'Age should be positive integer number';
+                  }
+                }),
+            Text(
+              'Description',
+              style: titleStyle,
+            ),
             inputField(
               textInputType: TextInputType.name,
               onSaved: (v) {},
-                validator: (value){
-                  if(value.isEmpty){return 'Please enter your pet kind';}
+              onChanged: (value) {
+                if (value.length <= 200)
+                  setState(() {
+                    descriptionLength = value.length;
+                  });
+              },
+              counter: descriptionLength,
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter a Description';
                 }
-            ),
-            Text('Age',style: titleStyle,),
-            inputField(
-              textInputType: TextInputType.number,
-              onSaved: (v) {},
-                validator: (value){
-                  if(value.isEmpty){return 'Please enter your pet age';}
-                }
-            ),
-            Text('Description',style: titleStyle,),
-            inputField(
-              textInputType: TextInputType.name,
-              onSaved: (v) {},
-                validator: (value){
-                  if(value.isEmpty){return 'Please enter a Description';}
-                }
+              },
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -81,7 +110,10 @@ class _AddPetViewState extends State<AddPetView> {
                     });
                   },
                 ),
-                Text('OR',style: titleStyle,),
+                Text(
+                  'OR',
+                  style: titleStyle,
+                ),
                 SquaredButton(
                   icon: FontAwesomeIcons.dog,
                   onTap: () {
@@ -94,40 +126,58 @@ class _AddPetViewState extends State<AddPetView> {
                 )
               ],
             ),
-            SizedBox(height: 15,),
+            SizedBox(
+              height: 15,
+            ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Radio(value: 'Male', groupValue: gender, onChanged: (value){
-                  setState(() {
-                    gender = value;
-                  });
-                }),
-                Text('Male',style: titleStyle,),
-                Radio(value: 'Female', groupValue: gender, onChanged: (value){
-                  setState(() {
-                    gender = value;
-                  });
-                }),
-                Text('Female',style: titleStyle,),
+                Radio(
+                    value: 'Male',
+                    groupValue: gender,
+                    onChanged: (value) {
+                      setState(() {
+                        gender = value;
+                      });
+                    }),
+                Text(
+                  'Male',
+                  style: titleStyle,
+                ),
+                Radio(
+                    value: 'Female',
+                    groupValue: gender,
+                    onChanged: (value) {
+                      setState(() {
+                        gender = value;
+                      });
+                    }),
+                Text(
+                  'Female',
+                  style: titleStyle,
+                ),
               ],
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 15),
               height: 50,
               child: RaisedButton(
-                  child: Text('Add'),
-                  color: kAccentColor,
-                  colorBrightness: Brightness.dark,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),),
-                  onPressed: petIndex == null || gender == null ? null :() {
-                    if(_globalKey.currentState.validate()){
-                      SystemChrome.setEnabledSystemUIOverlays([]);
-                      _globalKey.currentState.save();
-                      // petIndex , gender
-                    }
-                  },),
+                child: Text('Add'),
+                color: kAccentColor,
+                colorBrightness: Brightness.dark,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                onPressed: petIndex == null || gender == null
+                    ? null
+                    : () {
+                        if (_globalKey.currentState.validate()) {
+                          SystemChrome.setEnabledSystemUIOverlays([]);
+                          _globalKey.currentState.save();
+                          // petIndex , gender
+                        }
+                      },
+              ),
             )
           ],
         ),
