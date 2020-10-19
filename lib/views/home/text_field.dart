@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pet_adoption/constants.dart';
 
 Widget inputField({
@@ -10,10 +11,13 @@ Widget inputField({
   Function(String) onSaved,
   int counter,
   Function(String) onChanged,
+  TextInputAction textInputAction = TextInputAction.done,
 }) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 15),
     child: TextFormField(
+      enableSuggestions: true,
+      textInputAction: textInputAction,
       maxLength: 200,
       maxLines: counter != null ? 5 : 1,
       keyboardType: textInputType,
@@ -21,6 +25,7 @@ Widget inputField({
         fillColor: Colors.white,
         filled: true,
         hintText: hint,
+        hintStyle: TextStyle(fontSize: 13.5),
         isDense: true,
         suffixIcon: Icon(
           icon,

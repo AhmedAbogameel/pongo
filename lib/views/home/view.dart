@@ -17,6 +17,12 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int tabIndex = 0;
+
+  List<List<dynamic>> tabBarView = [
+    [1],
+    [],
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +76,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 Expanded(
                   flex: 3,
-                  child: AnimatedListView(),
+                  child: tabBarView[tabIndex].isNotEmpty ? Center(child: Text('Nothing To Show')) : AnimatedListView(),
                 ),
               ],
             ),

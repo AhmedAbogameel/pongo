@@ -12,7 +12,7 @@ class _MenuFrameState extends State<MenuFrame>
     with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   Animation<double> _scaleTransition;
-  Duration _duration = Duration(milliseconds: 200);
+  Duration _duration = Duration(milliseconds: 300);
   bool menuIsOpen = false;
 
   @override

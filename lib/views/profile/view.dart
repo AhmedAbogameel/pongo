@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:pet_adoption/views/home/text_field.dart';
 import 'package:pet_adoption/widgets/confirm_button.dart';
 import 'package:pet_adoption/widgets/default_app_bar.dart';
-
 import '../../constants.dart';
 
 class ProfileView extends StatelessWidget {

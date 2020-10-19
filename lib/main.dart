@@ -14,32 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        platform: TargetPlatform.iOS,
-        primaryColor: kPrimaryColor,
-        accentColor: kAccentColor,
-        canvasColor: kBGColor,
-        fontFamily: 'Tajawal',
-        textTheme: TextTheme(
-          // ignore: deprecated_member_use
-          title: TextStyle(
-            color: kAccentColor,
-            fontSize: 25,
-            fontWeight: FontWeight.w900,
-          ),
-          // ignore: deprecated_member_use
-          subtitle: TextStyle(
-            color: kAccentColor.withOpacity(0.5),
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-          // ignore: deprecated_member_use
-          body1: TextStyle(
-            color: kAccentColor.withOpacity(0.8),
-            fontSize: 15,
-          ),
-        ),
-      ),
+      theme: theme,
       home: SplashView(),
     );
   }

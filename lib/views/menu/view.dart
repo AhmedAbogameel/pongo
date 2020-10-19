@@ -59,17 +59,20 @@ class _MenuViewState extends State<MenuView> {
             ),
             Text(
               menuItems[index],
-              style: TextStyle(
-                color: Colors.white.withOpacity(0.5),
-                fontSize: 20.0,
-                fontWeight: FontWeight.w600,
-              ),
+              style: style,
+
             ),
           ],
         ),
       ),
     );
   }
+
+  final style = TextStyle(
+    color: Colors.white.withOpacity(0.5),
+    fontSize: 20.0,
+    fontWeight: FontWeight.w600,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -123,23 +126,33 @@ class _MenuViewState extends State<MenuView> {
                       .toList(),
                 ),
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Icon(
-                      FontAwesomeIcons.cog,
-                      color: Colors.white.withOpacity(0.5),
-                      size: 20,
-                    ),
-                    SizedBox(
-                      width: 16.0,
+                    TextButton(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.cog,
+                            color: Colors.white.withOpacity(0.5),
+                            size: 20,
+                          ),
+                          SizedBox(
+                            width: 16.0,
+                          ),
+                          Text('Settings',style: style,),
+                        ],
+                      ),
+                      onPressed: (){
+                        print('navigate to setting');
+                      },
                     ),
                     Text(
-                      'Settings   |   Log out',
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.5),
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      '   |   ',
+                      style: style,
+                    ),
+                    TextButton(
+                      child: Text('Log out',style: style,),
+                      onPressed: (){print('logged out');},
                     ),
                   ],
                 ),
