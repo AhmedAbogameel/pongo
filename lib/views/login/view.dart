@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_adoption/constants.dart';
-import 'package:pet_adoption/views/home/text_field.dart';
+import 'package:pet_adoption/views/forgetPassword/view.dart';
+import 'package:pet_adoption/views/signUp/view.dart';
+import 'package:pet_adoption/widgets/text_field.dart';
 import 'package:pet_adoption/views/menu/menu_frame.dart';
 import 'package:pet_adoption/widgets/confirm_button.dart';
 
@@ -49,21 +51,24 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
               ),
             ),
             Text(
-              'Phone',
+              'Email',
               // ignore: deprecated_member_use
               style: theme.subtitle,
             ),
             inputField(
-                hint: '+201234567890',
-                icon: FontAwesomeIcons.phoneAlt,
+                hint: 'example@mail.com',
+                icon: Icons.email,
                 textInputType: TextInputType.number,
                 onSaved: (String value) {},
                 textInputAction: TextInputAction.next,
                 validator: (String value) {
                   if (value.isEmpty) {
-                    return 'Please enter your phone';
+                    return 'Invalid email';
+                  }else if(!value.contains('@') || !value.contains('.com')){
+                    return 'Email must be example@mail.com';
                   }
-                }),
+                },
+            ),
             Text(
               'Password',
               // ignore: deprecated_member_use
@@ -75,7 +80,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                 onSaved: (String value) {},
                 validator: (String value) {
                   if (value.isEmpty) {
-                    return 'Please enter your password';
+                    return 'Invalid password';
                   } else if (value.length < 8) {
                     return 'Password must be 8 or more in length';
                   }
@@ -91,14 +96,15 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                     style: theme.body1,
                   ),
                   onPressed: () {
-                    setState(() {
-                      _logoHeight = 1;
-                    });
-                    _rotationController.forward().then((_){
-                      setState(() {
-                        _logoHeight = 3;
-                      });
-                    });
+                    Navigator.of(context).push(MaterialPageRoute(builder: (_)=> ForgetPasswordView()));
+                    // setState(() {
+                    //   _logoHeight = 1;
+                    // });
+                    // _rotationController.forward().then((_){
+                    //   setState(() {
+                    //     _logoHeight = 3;
+                    //   });
+                    // });
                   },
                 ),
               ],
@@ -106,11 +112,12 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
             ConfirmButton(
               title: 'Login',
               onPressed: () {
-                _rotationController.repeat();
+                //_rotationController.repeat();
                 _globalKey.currentState.save();
                 if (_globalKey.currentState.validate()) {
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (_) => MenuFrame()));
+                  hideStatusBar();
                 }
               },
             ),
@@ -124,7 +131,9 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                     style: theme.body1,
                   ),
                   onPressed: () {
-                    _rotationController.reset();
+                    //_rotationController.reset();
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (_) => SignUpView()));
                   },
                 ),
               ],

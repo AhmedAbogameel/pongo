@@ -11,6 +11,7 @@ Widget inputField({
   Function(String) onSaved,
   int counter,
   Function(String) onChanged,
+  TextEditingController controller,
   TextInputAction textInputAction = TextInputAction.done,
 }) {
   return Padding(
@@ -18,6 +19,7 @@ Widget inputField({
     child: TextFormField(
       enableSuggestions: true,
       textInputAction: textInputAction,
+      controller: controller,
       maxLength: 200,
       maxLines: counter != null ? 5 : 1,
       keyboardType: textInputType,

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_adoption/constants.dart';
 import 'package:pet_adoption/views/home/squared_button.dart';
-import 'package:pet_adoption/views/home/text_field.dart';
+import 'package:pet_adoption/widgets/text_field.dart';
 import 'package:pet_adoption/widgets/animated_list_view.dart';
 import 'package:pet_adoption/widgets/app_bar.dart';
 
@@ -45,7 +44,7 @@ class _HomeViewState extends State<HomeView> {
                     hint: 'Search',
                     icon: FontAwesomeIcons.search,
                     onSubmit: (String value) {
-                      SystemChrome.setEnabledSystemUIOverlays([]);
+                      hideStatusBar();
                     },
                   ),
                 ),

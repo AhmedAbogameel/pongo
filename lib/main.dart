@@ -1,11 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pet_adoption/constants.dart';
 import 'package:pet_adoption/views/splash/view.dart';
+import 'package:pet_adoption/views/test.dart';
 
-main() {
+main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setEnabledSystemUIOverlays([]);
+  await Firebase.initializeApp();
+  hideStatusBar();
   runApp(MyApp());
 }
 
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme,
-      home: SplashView(),
+      home: TestView(),
     );
   }
 }

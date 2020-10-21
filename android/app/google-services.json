@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "564024020565",
+    "firebase_url": "https://pongoo.firebaseio.com",
+    "project_id": "pongoo",
+    "storage_bucket": "pongoo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564024020565:android:175ee1d031023cb138cedc",
+        "android_client_info": {
+          "package_name": "com.abogameel.pongo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "564024020565-dg95gt565jv2bj5dkhvb72dcsfm2a6r5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBge8jWUOjnrW4Wn1aiHZhsLu5WxzmX9QI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "564024020565-dg95gt565jv2bj5dkhvb72dcsfm2a6r5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

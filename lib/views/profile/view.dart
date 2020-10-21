@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pet_adoption/views/home/text_field.dart';
+import 'package:pet_adoption/widgets/text_field.dart';
 import 'package:pet_adoption/widgets/confirm_button.dart';
 import 'package:pet_adoption/widgets/default_app_bar.dart';
 import '../../constants.dart';
@@ -35,12 +35,12 @@ class ProfileView extends StatelessWidget {
               onSaved: (v) {},
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'Please enter your Name';
+                  return 'Invalid Name';
                 }
               },
             ),
             Text(
-              'Phone',
+              'Email',
               style: titleStyle,
             ),
             inputField(
@@ -48,7 +48,7 @@ class ProfileView extends StatelessWidget {
               onSaved: (v) {},
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'Invalid Phone Number';
+                  return 'Invalid Email';
                 }
               },
             ),
@@ -69,7 +69,7 @@ class ProfileView extends StatelessWidget {
               if (_globalKey.currentState.validate()) {
                 SystemChrome.setEnabledSystemUIOverlays([]);
                 _globalKey.currentState.save();
-                // petIndex , gender
+
               }
             }),
           ],

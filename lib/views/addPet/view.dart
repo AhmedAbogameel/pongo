@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_adoption/constants.dart';
 import 'package:pet_adoption/views/home/squared_button.dart';
-import 'package:pet_adoption/views/home/text_field.dart';
+import 'package:pet_adoption/widgets/text_field.dart';
 import 'package:pet_adoption/widgets/confirm_button.dart';
 import 'package:pet_adoption/widgets/default_app_bar.dart';
 
