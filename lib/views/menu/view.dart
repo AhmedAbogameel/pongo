@@ -4,7 +4,9 @@ import 'package:pet_adoption/constants.dart';
 import 'package:pet_adoption/views/addPet/view.dart';
 import 'package:pet_adoption/views/adoption/view.dart';
 import 'package:pet_adoption/views/favourite/view.dart';
+import 'package:pet_adoption/views/login/view.dart';
 import 'package:pet_adoption/views/profile/view.dart';
+import 'package:pet_adoption/views/test.dart';
 
 class MenuView extends StatefulWidget {
   @override
@@ -18,7 +20,7 @@ class _MenuViewState extends State<MenuView> {
     'Donation \n(Coming Soon)',
     'Add pet',
     'Favorites',
-    'Messages \n(Coming Soon)',
+    'Messages',
     'Profile',
   ];
 
@@ -36,7 +38,7 @@ class _MenuViewState extends State<MenuView> {
     Container(),
     AddPetView(),
     FavouriteView(),
-    Container(),
+    TestView(),
     ProfileView(),
   ];
 
@@ -152,7 +154,9 @@ class _MenuViewState extends State<MenuView> {
                     ),
                     TextButton(
                       child: Text('Log out',style: style,),
-                      onPressed: (){print('logged out');},
+                      onPressed: (){
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>LoginView()));
+                      },
                     ),
                   ],
                 ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pet_adoption/views/login/view.dart';
 import 'package:pet_adoption/widgets/text_field.dart';
 import 'package:pet_adoption/widgets/confirm_button.dart';
 import 'package:pet_adoption/widgets/default_app_bar.dart';
@@ -102,8 +103,8 @@ class SignUpView extends StatelessWidget {
                   ),
                   onPressed: () {
                     //_rotationController.reset();
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => SignUpView()));
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (_) => LoginView()));
                   },
                 ),
               ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pet_adoption/views/forgetPassword/view.dart';
 import 'package:pet_adoption/widgets/text_field.dart';
 import 'package:pet_adoption/widgets/confirm_button.dart';
 import 'package:pet_adoption/widgets/default_app_bar.dart';
@@ -72,6 +73,23 @@ class ProfileView extends StatelessWidget {
 
               }
             }),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  child: Text(
+                    'Forgot password ? Reset now',
+                    // ignore: deprecated_member_use
+                    style: Theme.of(context).textTheme.body1,
+                  ),
+                  onPressed: () {
+                    //_rotationController.reset();
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => ForgetPasswordView()));
+                  },
+                ),
+              ],
+            ),
           ],
         ),
       ),
