@@ -3,7 +3,9 @@ import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_adoption/constants.dart';
 import 'package:pet_adoption/views/forgetPassword/view.dart';
+import 'package:pet_adoption/views/login/controller.dart';
 import 'package:pet_adoption/views/signUp/view.dart';
+import 'package:pet_adoption/widgets/snack_bar.dart';
 import 'package:pet_adoption/widgets/text_field.dart';
 import 'package:pet_adoption/views/menu/menu_frame.dart';
 import 'package:pet_adoption/widgets/confirm_button.dart';
@@ -14,9 +16,11 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
+  String email,password;
+
   AnimationController _rotationController;
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
-
+  LoginController _loginController = LoginController();
   @override
   void initState() {
     _rotationController =
@@ -58,8 +62,8 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
             inputField(
                 hint: 'example@mail.com',
                 icon: Icons.email,
-                textInputType: TextInputType.number,
-                onSaved: (String value) {},
+                textInputType: TextInputType.emailAddress,
+                onSaved: (String value)=> email = value,
                 textInputAction: TextInputAction.next,
                 validator: (String value) {
                   if (value.isEmpty) {
@@ -77,7 +81,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
             inputField(
                 hint: '********',
                 icon: FontAwesomeIcons.key,
-                onSaved: (String value) {},
+                onSaved: (String value)=> password = value,
                 validator: (String value) {
                   if (value.isEmpty) {
                     return 'Invalid password';
@@ -95,31 +99,29 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                     // ignore: deprecated_member_use
                     style: theme.body1,
                   ),
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (_)=> ForgetPasswordView()));
-                    // setState(() {
-                    //   _logoHeight = 1;
-                    // });
-                    // _rotationController.forward().then((_){
-                    //   setState(() {
-                    //     _logoHeight = 3;
-                    //   });
-                    // });
-                  },
+                  onPressed: ()=> Navigator.of(context).push(MaterialPageRoute(builder: (_)=> ForgetPasswordView())),
                 ),
               ],
             ),
-            ConfirmButton(
-              title: 'Login',
-              onPressed: () {
-                //_rotationController.repeat();
-                _globalKey.currentState.save();
-                if (_globalKey.currentState.validate()) {
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (_) => MenuFrame()));
-                  hideStatusBar();
-                }
-              },
+            Builder(
+              builder: (ctx)=> ConfirmButton(
+                title: 'Login',
+                onPressed: ()async {
+                  if (_globalKey.currentState.validate()) {
+                    _loading();
+                    _globalKey.currentState.save();
+                    FocusScope.of(context).unfocus();
+                    final userModel = await _loginController.login(email, password);
+                    if(userModel.message != null){
+                      _stopLoading();
+                      showSnackBar(ctx, title: userModel.message, onPressed: (){},label: 'X');
+                    }else{
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=> MenuFrame()));
+                    }
+                    hideStatusBar();
+                  }
+                },
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -130,11 +132,8 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                     // ignore: deprecated_member_use
                     style: theme.body1,
                   ),
-                  onPressed: () {
-                    //_rotationController.reset();
-                    Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (_) => SignUpView()));
-                  },
+                  onPressed: ()=> Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (_) => SignUpView())),
                 ),
               ],
             ),
@@ -142,5 +141,17 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
         ),
       ),
     );
+  }
+  void _loading(){
+    setState(() {
+      _logoHeight = 1;
+    });
+    _rotationController.repeat();
+  }
+  void _stopLoading(){
+    setState(() {
+      _logoHeight = 3;
+    });
+    _rotationController.reset();
   }
 }

@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pet_adoption/constants.dart';
+import 'package:pet_adoption/core/models/user.dart';
 import 'package:pet_adoption/views/login/view.dart';
+import 'package:pet_adoption/views/menu/menu_frame.dart';
 
 class SplashView extends StatefulWidget {
   @override
@@ -15,7 +17,7 @@ class _SplashViewState extends State<SplashView> {
       Duration(seconds: 3),
       () => Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (_) => LoginView(),
+          builder: (_) => UserModel().userId == null ? LoginView() : MenuFrame(),
         ),
       ),
     );

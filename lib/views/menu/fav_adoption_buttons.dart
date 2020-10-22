@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pet_adoption/views/petDetails/snack_bar.dart';
+import 'package:pet_adoption/widgets/snack_bar.dart';
 
 import '../../constants.dart';
 

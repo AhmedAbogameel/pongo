@@ -21,6 +21,8 @@ Widget inputField({
       textInputAction: textInputAction,
       controller: controller,
       maxLength: 200,
+      obscureText: hint.contains('*'),
+      obscuringCharacter: '*',
       maxLines: counter != null ? 5 : 1,
       keyboardType: textInputType,
       decoration: InputDecoration(

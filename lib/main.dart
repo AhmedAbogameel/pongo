@@ -1,12 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_adoption/constants.dart';
+import 'package:pet_adoption/core/services/shared_preferences.dart';
 import 'package:pet_adoption/views/splash/view.dart';
-import 'package:pet_adoption/views/test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await PrefsFunctions().getUserModel();
   hideStatusBar();
   runApp(MyApp());
 }

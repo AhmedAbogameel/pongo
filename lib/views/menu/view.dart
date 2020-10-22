@@ -7,6 +7,7 @@ import 'package:pet_adoption/views/favourite/view.dart';
 import 'package:pet_adoption/views/login/view.dart';
 import 'package:pet_adoption/views/profile/view.dart';
 import 'package:pet_adoption/views/test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuView extends StatefulWidget {
   @override
@@ -45,7 +46,7 @@ class _MenuViewState extends State<MenuView> {
   Widget buildMenuRow(int index) {
     return InkWell(
       borderRadius: BorderRadius.circular(20),
-      onTap: index == 1 || index == 4 ? null : () {
+      onTap: index == 1 ? null : () {
         Navigator.of(context).push(MaterialPageRoute(builder: (_)=> menuNavigator[index]));
       },
       child: Padding(
@@ -154,7 +155,9 @@ class _MenuViewState extends State<MenuView> {
                     ),
                     TextButton(
                       child: Text('Log out',style: style,),
-                      onPressed: (){
+                      onPressed: ()async{
+                        SharedPreferences _prefs =await SharedPreferences.getInstance();
+                        await _prefs.clear();
                         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>LoginView()));
                       },
                     ),
