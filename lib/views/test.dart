@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_adoption/constants.dart';
+import 'package:pet_adoption/core/keywords/firestore.dart';
 import 'package:pet_adoption/widgets/text_field.dart';
 
 class TestView extends StatefulWidget {
@@ -11,9 +11,10 @@ class TestView extends StatefulWidget {
 }
 
 class _TestViewState extends State<TestView> {
-
   String user1 = 'Abogameel';
-  String user2 = 'Nasr';
+  String user2 = 'Dagla';
+  String uid1 = 'a';
+  String uid2 = 'aaa';
 
   TextEditingController messageController = TextEditingController();
   @override
@@ -30,23 +31,31 @@ class _TestViewState extends State<TestView> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Container(width: sizeFromWidth(context, 1.3),child: inputField(
-                controller: messageController,
-                hint: 'Send Message...'
-              )),
+              Container(
+                  width: sizeFromWidth(context, 1.3),
+                  child: inputField(
+                      controller: messageController, hint: 'Send Message...')),
               IconButton(
                 icon: Icon(Icons.send),
                 iconSize: 35,
-                color: Colors.pink,
+                color: Colors.grey.withOpacity(0.2),
                 onPressed: () {
-                  if(messageController.text.isNotEmpty){
+                  if (messageController.text.isNotEmpty) {
                     FirebaseFirestore.instance
-                        .collection('chats')
+                        .collection('${FirestoreKeyWords.chats}/a/aaa')
                         .add({
-                      'text': messageController.text,
-                      'sentAt':Timestamp.now(),
-                      'userName':user1,
-                      'userId':user1,
+                      FirestoreKeyWords.text: messageController.text,
+                      FirestoreKeyWords.sentAt: Timestamp.now(),
+                      FirestoreKeyWords.userName: user1,
+                      FirestoreKeyWords.userId: user1,
+                    });
+                    FirebaseFirestore.instance
+                        .collection('${FirestoreKeyWords.chats}/aaa/a')
+                        .add({
+                      FirestoreKeyWords.text: messageController.text,
+                      FirestoreKeyWords.sentAt: Timestamp.now(),
+                      FirestoreKeyWords.userName: user1,
+                      FirestoreKeyWords.userId: user1,
                     });
                     messageController.clear();
                   }
@@ -57,14 +66,22 @@ class _TestViewState extends State<TestView> {
                 iconSize: 35,
                 color: Colors.amber,
                 onPressed: () {
-                  if(messageController.text.isNotEmpty){
+                  if (messageController.text.isNotEmpty) {
                     FirebaseFirestore.instance
-                        .collection('chats')
+                        .collection('${FirestoreKeyWords.chats}/aaa/a')
                         .add({
-                      'text': messageController.text,
-                      'sentAt':Timestamp.now(),
-                      'userName':user2,
-                      'userId':user2,
+                      FirestoreKeyWords.text: messageController.text,
+                      FirestoreKeyWords.sentAt: Timestamp.now(),
+                      FirestoreKeyWords.userName: user2,
+                      FirestoreKeyWords.userId: user2,
+                    });
+                    FirebaseFirestore.instance
+                        .collection('${FirestoreKeyWords.chats}/a/aaa')
+                        .add({
+                      FirestoreKeyWords.text: messageController.text,
+                      FirestoreKeyWords.sentAt: Timestamp.now(),
+                      FirestoreKeyWords.userName: user2,
+                      FirestoreKeyWords.userId: user2,
                     });
                     messageController.clear();
                   }
@@ -84,22 +101,27 @@ class Messages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('chats').orderBy('sentAt',descending: true)
-            .snapshots(),
-        builder: (ctx,snapShot){
-          if(snapShot.connectionState == ConnectionState.waiting) return Center(child: CupertinoActivityIndicator(),);
-          final List docs = snapShot.data.docs;
-          return ListView.builder(
-            itemCount: docs.length,
-            reverse: true,
-            itemBuilder: (_, listIndex) => MessageBubble(
-              isMe: docs[listIndex]['userName'] == user1,
-              key: ValueKey(docs[listIndex]['userName']),
-              message: docs[listIndex]['text'],
-              userName: docs[listIndex]['userName'],
-            ),
-          );}
+      stream: FirebaseFirestore.instance
+          .collection('${FirestoreKeyWords.chats}/a/aaa')
+          .orderBy('sentAt', descending: true)
+          .snapshots(),
+      builder: (_, snapShot) {
+        if (snapShot.connectionState == ConnectionState.waiting)
+          return Center(
+            child: CupertinoActivityIndicator(),
+          );
+        final List docs = snapShot.data.docs;
+        return ListView.builder(
+          itemCount: docs.length,
+          reverse: true,
+          itemBuilder: (_, listIndex) => MessageBubble(
+            isMe: docs[listIndex][FirestoreKeyWords.userName] == user1,
+            key: ValueKey(docs[listIndex][FirestoreKeyWords.userId]),
+            message: docs[listIndex][FirestoreKeyWords.text],
+            userName: docs[listIndex][FirestoreKeyWords.userName],
+          ),
+        );
+      },
     );
   }
 }
@@ -124,26 +146,29 @@ class MessageBubble extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(userName,style: TextStyle(fontWeight: FontWeight.w900,color: Colors.black),),
-              Text(message),
+              Text(
+                userName,
+                style:
+                    TextStyle(fontWeight: FontWeight.w900, color: Colors.black),
+              ),
+              Text(message,style: TextStyle(fontSize: 25),),
             ],
           ),
           decoration: BoxDecoration(
-            color: isMe ? Colors.grey.withOpacity(0.2) : Colors.amber.withOpacity(0.7) ,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(15),
-              topRight: Radius.circular(15),
-              bottomLeft: !isMe ? Radius.circular(0) : Radius.circular(15),
-              bottomRight: !isMe ? Radius.circular(15) : Radius.circular(0),
-            )
-          ),
+              color: isMe
+                  ? Colors.grey.withOpacity(0.2)
+                  : Colors.amber.withOpacity(0.7),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(15),
+                topRight: Radius.circular(15),
+                bottomLeft: !isMe ? Radius.circular(0) : Radius.circular(15),
+                bottomRight: !isMe ? Radius.circular(15) : Radius.circular(0),
+              )),
         ),
       ],
     );
   }
 }
-
-
 /*
 
 FirebaseFirestore.instance
