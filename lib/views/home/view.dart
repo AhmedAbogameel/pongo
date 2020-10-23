@@ -1,7 +1,11 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_adoption/constants.dart';
+import 'package:pet_adoption/core/models/pet.dart';
+import 'package:pet_adoption/views/home/alt_content.dart';
+import 'package:pet_adoption/views/home/controller.dart';
 import 'package:pet_adoption/views/home/squared_button.dart';
 import 'package:pet_adoption/widgets/text_field.dart';
 import 'package:pet_adoption/widgets/animated_list_view.dart';
@@ -17,22 +21,44 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int tabIndex = 0;
-
+  bool _isLoading = true;
+  List<PetModel> _cats, _dogs;
   ScrollController _scrollController = ScrollController();
-  List<List<dynamic>> tabBarView = [
-    [1],
-    [],
-  ];
+  HomeController _homeController = HomeController();
 
   @override
   void initState() {
+    _getPets();
     listenScroll();
     super.initState();
   }
 
+  void _getPets() async {
+    _cats = await _homeController.getPets('cats');
+    _dogs = await _homeController.getPets('dogs');
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+
+    final List<Widget> tabBarView = [
+      _cats == null || _cats.isEmpty
+          ? AltContent(tabIndex)
+          : AnimatedListView(
+        items: _cats,
+        controller: _scrollController,
+      ),
+      _dogs == null || _dogs.isEmpty
+          ? AltContent(tabIndex)
+          : AnimatedListView(
+        controller: _scrollController,
+        items: _dogs,
+      ),
+    ];
+
     return Scaffold(
       appBar: appBar(() {
         setState(() {
@@ -86,39 +112,14 @@ class _HomeViewState extends State<HomeView> {
                     ],
                   ),
                 ),
-              Expanded(
-                flex: 3,
-                child: tabBarView[tabIndex].isNotEmpty
-                    ? Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            tabIndex == 0
-                                ? 'assets/images/cat.png'
-                                : 'assets/images/dog.png',
-                            height: sizeFromHeight(context, 3),
-                          ),
-                          Text(
-                            tabIndex == 1
-                                ? 'No friends to play with'
-                                : 'I have kicked those stupid pets',
-                            // ignore: deprecated_member_use
-                            style: textTheme.subtitle,
-                          ),
-                          SizedBox(
-                            height: 50,
-                          ),
-                          Text(
-                            'No pets available now',
-                            // ignore: deprecated_member_use
-                            style: textTheme.title,
-                          ),
-                        ],
-                      )
-                    : AnimatedListView(
-                        controller: _scrollController,
-                      ),
-              ),
+              _isLoading
+                  ? Expanded(
+                      child: CupertinoActivityIndicator(),
+                    )
+                  : Expanded(
+                      flex: 3,
+                      child: tabBarView[tabIndex],
+                    ),
             ],
           ),
         ),

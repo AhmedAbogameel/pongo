@@ -16,9 +16,9 @@ class SignUpController {
       url,
       body: jsonEncode(
         {
-          APIKeywords.email: email,
-          APIKeywords.password: password,
-          APIKeywords.displayName: displayName,
+          UserKeywords.email: email,
+          UserKeywords.password: password,
+          UserKeywords.displayName: displayName,
         },
       ),
     );
@@ -27,7 +27,7 @@ class SignUpController {
       _userModel.message =
           decodedResponse['error']['message'].replaceAll('_', ' ');
     } catch (_) {
-      final userId = decodedResponse[APIKeywords.localId];
+      final userId = decodedResponse[UserKeywords.localId];
       _userModel.message = null;
       _userModel.email = email;
       _userModel.displayName = displayName;
@@ -45,9 +45,9 @@ class SignUpController {
       url,
       body: jsonEncode(
         {
-          APIKeywords.email: email,
-          APIKeywords.displayName: displayName,
-          APIKeywords.photoUrl: '',
+          UserKeywords.email: email,
+          UserKeywords.displayName: displayName,
+          UserKeywords.photoUrl: '',
         },
       ),
     );

@@ -4,6 +4,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../constants.dart';
 
 class PetInfoContainer extends StatelessWidget {
+  final String petName;
+  final String kind;
+  final int age;
+  final bool isMale;
+
+  PetInfoContainer({this.petName, this.kind, this.age, this.isMale});
+  
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -18,8 +25,8 @@ class PetInfoContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // ignore: deprecated_member_use
-                Text('Sala',style: Theme.of(context).textTheme.title,),
-                Icon(FontAwesomeIcons.mars,color: kAccentColor,size: 30,)
+                Text(petName,style: Theme.of(context).textTheme.title,),
+                Icon(isMale ? FontAwesomeIcons.mars : FontAwesomeIcons.venus,color: kAccentColor,size: 30,)
               ],
             ),
             SizedBox(height: 15 ,),
@@ -27,9 +34,9 @@ class PetInfoContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // ignore: deprecated_member_use
-                Text('Apyssinian cat',style: Theme.of(context).textTheme.subtitle,),
+                Text(kind,style: Theme.of(context).textTheme.subtitle,),
                 // ignore: deprecated_member_use
-                Text('2 years old',style: Theme.of(context).textTheme.body1,),
+                Text('$age years old',style: Theme.of(context).textTheme.body1,),
               ],
             ),
           ],

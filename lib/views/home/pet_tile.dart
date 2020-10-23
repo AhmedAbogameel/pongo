@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_adoption/constants.dart';
+import 'package:pet_adoption/core/models/pet.dart';
 import 'package:pet_adoption/views/petDetails/view.dart';
 
 class PetCard extends StatelessWidget {
+  final PetModel petModel;
+  PetCard(this.petModel);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -12,16 +15,18 @@ class PetCard extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
         child: Row(
           children: [
-            Container(
-              height: sizeFromHeight(context, 4),
-              width: sizeFromWidth(context, 3),
-              decoration: BoxDecoration(
-                boxShadow: [BoxShadow(color: kPrimaryColor, blurRadius: 5)],
-                borderRadius: BorderRadius.circular(25),
-                image: DecorationImage(
-                    image: NetworkImage(
-                        'https://e7.pngegg.com/pngimages/665/236/png-clipart-cute-dog-puppy-dog.png'),
-                    fit: BoxFit.fitHeight),
+            Hero(
+              tag: petModel.photoUrl,
+              child: Container(
+                height: sizeFromHeight(context, 4),
+                width: sizeFromWidth(context, 3),
+                decoration: BoxDecoration(
+                  boxShadow: [BoxShadow(color: kPrimaryColor, blurRadius: 5)],
+                  borderRadius: BorderRadius.circular(25),
+                  image: DecorationImage(
+                      image: NetworkImage(petModel.photoUrl),
+                      fit: BoxFit.fitHeight),
+                ),
               ),
             ),
             Stack(
@@ -33,17 +38,17 @@ class PetCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        'Title',
+                        petModel.kind,
                         // ignore: deprecated_member_use
                         style: Theme.of(context).textTheme.title,
                       ),
                       Text(
-                        'Name',
+                        petModel.petName,
                         // ignore: deprecated_member_use
                         style: Theme.of(context).textTheme.subtitle,
                       ),
                       Text(
-                        '10 - 15 year',
+                        '${petModel.age} years old',
                         // ignore: deprecated_member_use
                         style: Theme.of(context).textTheme.body1,
                       ),
@@ -62,7 +67,7 @@ class PetCard extends StatelessWidget {
                   right: 15,
                   top: 15,
                   // mars & venus
-                  child: Icon(FontAwesomeIcons.venus,color: kAccentColor,size: 35,),
+                  child: Icon(petModel.isMale ? FontAwesomeIcons.mars : FontAwesomeIcons.venus,color: kAccentColor,size: 35,),
                 ),
               ],
             ),
@@ -70,7 +75,7 @@ class PetCard extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (_)=> PetDetailsView(),),);
+        Navigator.of(context).push(MaterialPageRoute(builder: (_)=> PetDetailsView(petModel),),);
       },
     );
   }

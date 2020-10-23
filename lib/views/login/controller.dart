@@ -16,8 +16,8 @@ class LoginController {
       url,
       body: jsonEncode(
         {
-          APIKeywords.email: email,
-          APIKeywords.password: password,
+          UserKeywords.email: email,
+          UserKeywords.password: password,
         },
       ),
     );
@@ -27,10 +27,10 @@ class LoginController {
           decodedResponse['error']['message'].replaceAll('_', ' ');
     } catch (_) {
       _userModel.message = null;
-      _userModel.email = decodedResponse[APIKeywords.email];
-      _userModel.displayName = decodedResponse[APIKeywords.displayName];
-      _userModel.photoUrl = decodedResponse[APIKeywords.photoUrl];
-      _userModel.userId = decodedResponse[APIKeywords.localId];
+      _userModel.email = decodedResponse[UserKeywords.email];
+      _userModel.displayName = decodedResponse[UserKeywords.displayName];
+      _userModel.photoUrl = decodedResponse[UserKeywords.photoUrl];
+      _userModel.userId = decodedResponse[UserKeywords.localId];
       await PrefsFunctions().storeUserModel(_userModel);
     }
     return _userModel;
