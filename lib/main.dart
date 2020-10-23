@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:pet_adoption/constants.dart';
 import 'package:pet_adoption/core/services/shared_preferences.dart';
 import 'package:pet_adoption/views/splash/view.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 main() async{
   WidgetsFlutterBinding.ensureInitialized();

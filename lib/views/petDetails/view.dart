@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:pet_adoption/views/menu/fav_adoption_buttons.dart';
+import 'package:pet_adoption/widgets/fav_adoption_buttons.dart';
 import 'package:pet_adoption/views/petDetails/owner_tile.dart';
 import 'package:pet_adoption/views/petDetails/pet_image.dart';
 import 'package:pet_adoption/views/petDetails/pet_info_container.dart';

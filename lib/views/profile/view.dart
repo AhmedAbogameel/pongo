@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pet_adoption/core/models/user.dart';
 import 'package:pet_adoption/views/forgetPassword/view.dart';
 import 'package:pet_adoption/widgets/text_field.dart';
 import 'package:pet_adoption/widgets/confirm_button.dart';
@@ -8,6 +9,7 @@ import '../../constants.dart';
 
 class ProfileView extends StatelessWidget {
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
+  final UserModel _userModel = UserModel();
   @override
   Widget build(BuildContext context) {
     // ignore: deprecated_member_use
@@ -19,11 +21,17 @@ class ProfileView extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.fromLTRB(25,25,25,0),
           children: [
+            Text(
+              'Change Photo',
+              style: titleStyle,
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 12,),
             GestureDetector(
               child: CircleAvatar(
                 backgroundColor: kAccentColor.withOpacity(0.7),
                 radius: sizeFromHeight(context, 8),
-                child: Text('Upload pet image'),
+                child: _userModel.photoUrl == null ? Image.asset(logoLocation) : Image.network(_userModel.photoUrl),
               ),
               onTap: () {},
             ),
@@ -32,6 +40,7 @@ class ProfileView extends StatelessWidget {
               style: titleStyle,
             ),
             inputField(
+              hint: _userModel.displayName,
               textInputType: TextInputType.name,
               onSaved: (v) {},
               validator: (value) {
@@ -45,6 +54,7 @@ class ProfileView extends StatelessWidget {
               style: titleStyle,
             ),
             inputField(
+              hint: _userModel.email,
               textInputType: TextInputType.name,
               onSaved: (v) {},
               validator: (value) {
@@ -58,6 +68,7 @@ class ProfileView extends StatelessWidget {
               style: titleStyle,
             ),
             inputField(
+              hint: '********',
               textInputType: TextInputType.name,
               onSaved: (v) {},
               validator: (value) {
@@ -68,9 +79,9 @@ class ProfileView extends StatelessWidget {
             ),
             ConfirmButton(onPressed: () {
               if (_globalKey.currentState.validate()) {
-                SystemChrome.setEnabledSystemUIOverlays([]);
+                hideStatusBar();
+                FocusScope.of(context).unfocus();
                 _globalKey.currentState.save();
-
               }
             }),
             Row(
@@ -82,11 +93,9 @@ class ProfileView extends StatelessWidget {
                     // ignore: deprecated_member_use
                     style: Theme.of(context).textTheme.body1,
                   ),
-                  onPressed: () {
-                    //_rotationController.reset();
+                  onPressed: ()=>
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => ForgetPasswordView()));
-                  },
+                        MaterialPageRoute(builder: (_) => ForgetPasswordView())),
                 ),
               ],
             ),

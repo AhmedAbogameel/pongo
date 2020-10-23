@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_adoption/constants.dart';
+import 'package:pet_adoption/core/models/user.dart';
 import 'package:pet_adoption/views/addPet/view.dart';
 import 'package:pet_adoption/views/adoption/view.dart';
 import 'package:pet_adoption/views/favourite/view.dart';
@@ -15,7 +16,6 @@ class MenuView extends StatefulWidget {
 }
 
 class _MenuViewState extends State<MenuView> {
-
   List<String> menuItems = [
     'Adoption',
     'Donation \n(Coming Soon)',
@@ -46,9 +46,12 @@ class _MenuViewState extends State<MenuView> {
   Widget buildMenuRow(int index) {
     return InkWell(
       borderRadius: BorderRadius.circular(20),
-      onTap: index == 1 ? null : () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (_)=> menuNavigator[index]));
-      },
+      onTap: index == 1
+          ? null
+          : () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => menuNavigator[index]));
+            },
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 24.0),
         child: Row(
@@ -63,7 +66,6 @@ class _MenuViewState extends State<MenuView> {
             Text(
               menuItems[index],
               style: style,
-
             ),
           ],
         ),
@@ -76,6 +78,8 @@ class _MenuViewState extends State<MenuView> {
     fontSize: 20.0,
     fontWeight: FontWeight.w600,
   );
+
+  UserModel _userModel = UserModel();
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +99,9 @@ class _MenuViewState extends State<MenuView> {
                   children: <Widget>[
                     CircleAvatar(
                       radius: 24.0,
-                      backgroundImage: AssetImage('assets/images/logo.png'),
+                      backgroundImage: _userModel.photoUrl == null
+                          ? AssetImage('assets/images/logo.png')
+                          : NetworkImage(_userModel.photoUrl),
                     ),
                     SizedBox(
                       width: 16.0,
@@ -104,7 +110,7 @@ class _MenuViewState extends State<MenuView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Ryan',
+                          _userModel.displayName,
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
@@ -112,9 +118,9 @@ class _MenuViewState extends State<MenuView> {
                           ),
                         ),
                         Text(
-                          'Active status',
+                          _userModel.email,
                           style:
-                          TextStyle(color: Colors.white.withOpacity(0.5)),
+                              TextStyle(color: Colors.white.withOpacity(0.5)),
                         ),
                       ],
                     ),
@@ -142,10 +148,13 @@ class _MenuViewState extends State<MenuView> {
                           SizedBox(
                             width: 16.0,
                           ),
-                          Text('Settings',style: style,),
+                          Text(
+                            'Settings',
+                            style: style,
+                          ),
                         ],
                       ),
-                      onPressed: (){
+                      onPressed: () {
                         print('navigate to setting');
                       },
                     ),
@@ -154,11 +163,16 @@ class _MenuViewState extends State<MenuView> {
                       style: style,
                     ),
                     TextButton(
-                      child: Text('Log out',style: style,),
-                      onPressed: ()async{
-                        SharedPreferences _prefs =await SharedPreferences.getInstance();
+                      child: Text(
+                        'Log out',
+                        style: style,
+                      ),
+                      onPressed: () async {
+                        SharedPreferences _prefs =
+                            await SharedPreferences.getInstance();
                         await _prefs.clear();
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>LoginView()));
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (_) => LoginView()));
                       },
                     ),
                   ],

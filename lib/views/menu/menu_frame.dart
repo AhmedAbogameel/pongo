@@ -22,7 +22,8 @@ class _MenuFrameState extends State<MenuFrame>
       vsync: this,
       duration: _duration,
     );
-    _scaleTransition = Tween<double>(begin: 1.0,end: 0.6).animate(_animationController);
+    _scaleTransition =
+        Tween<double>(begin: 1.0, end: 0.6).animate(_animationController);
   }
 
   @override
@@ -34,22 +35,30 @@ class _MenuFrameState extends State<MenuFrame>
           top: menuIsOpen ? 75 : 0,
           bottom: menuIsOpen ? 75 : 0,
           right: menuIsOpen ? -sizeFromWidth(context, 2) : 0,
-          left:  menuIsOpen ? sizeFromWidth(context, 2) : 0,
+          left: menuIsOpen ? sizeFromWidth(context, 2) : 0,
           child: ClipRRect(
-              borderRadius: BorderRadius.horizontal(left: Radius.circular(menuIsOpen ? 30 : 0 )),
-              child: ScaleTransition(scale: _scaleTransition,child: GestureDetector(
-                child: HomeView(menuCallBack: (){
-                  setState(() {
-                    menuIsOpen = !menuIsOpen;
-                  });
-                },menuOpen: menuIsOpen,),
-                onTap: (){
-                  if(menuIsOpen)
+            borderRadius: BorderRadius.horizontal(
+                left: Radius.circular(menuIsOpen ? 30 : 0)),
+            child: ScaleTransition(
+              scale: _scaleTransition,
+              child: GestureDetector(
+                child: HomeView(
+                  menuCallBack: () {
+                    setState(() {
+                      menuIsOpen = !menuIsOpen;
+                    });
+                  },
+                  menuOpen: menuIsOpen,
+                ),
+                onTap: () {
+                  if (menuIsOpen)
                     setState(() {
                       menuIsOpen = false;
                     });
                 },
-              ),),),
+              ),
+            ),
+          ),
           duration: _duration,
         ),
       ],
