@@ -11,8 +11,8 @@ class TestView extends StatefulWidget {
 }
 
 class _TestViewState extends State<TestView> {
-  String user1 = 'Abogameel';
-  String user2 = 'Dagla';
+  String user1 = 'Ahmed';
+  String user2 = 'Ashraf';
   String uid1 = 'a';
   String uid2 = 'aaa';
 
@@ -97,7 +97,7 @@ class _TestViewState extends State<TestView> {
 }
 
 class Messages extends StatelessWidget {
-  String user1 = 'Abogameel';
+  String user1 = 'Ahmed';
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(

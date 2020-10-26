@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import '../../constants.dart';
 
 class PetImage extends StatelessWidget {
@@ -11,7 +12,7 @@ class PetImage extends StatelessWidget {
       color: kPrimaryColor,
       child: Hero(
         tag: photoUrl,
-        child: Image.network(photoUrl),
+        child: Image.network(photoUrl,fit: BoxFit.cover,),
       ),
       alignment: Alignment.center,
     );

@@ -5,13 +5,11 @@ import 'package:pet_adoption/views/home/pet_tile.dart';
 
 class AnimatedListView extends StatelessWidget {
   final List<PetModel> items;
-  final controller;
-  AnimatedListView({this.controller,this.items});
+  AnimatedListView({this.items});
   @override
   Widget build(BuildContext context) {
     return AnimationLimiter(
       child: ListView.builder(
-        controller: controller,
         itemCount: items.length,
         itemBuilder: (_, listIndex) => AnimationConfiguration.staggeredList(
           position: listIndex,

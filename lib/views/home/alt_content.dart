@@ -16,6 +16,7 @@ class AltContent extends StatelessWidget {
               : 'assets/images/dog.png',
           height: sizeFromHeight(context, 3),
         ),
+        SizedBox(height: 12,),
         Text(
           tabIndex == 1
               ? 'No friends to play with'

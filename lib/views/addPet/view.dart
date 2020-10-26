@@ -28,11 +28,17 @@ class _AddPetViewState extends State<AddPetView> {
         child: ListView(
           padding: EdgeInsets.fromLTRB(25,25,25,0),
           children: [
+            Text(
+              'Pet Photo',
+              style: titleStyle,
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 12,),
             GestureDetector(
               child: CircleAvatar(
                 backgroundColor: kAccentColor.withOpacity(0.7),
                 radius: sizeFromHeight(context, 8),
-                child: Text('Upload pet image'),
+                child: Text('Upload pet photo'),
               ),
               onDoubleTap: () {},
             ),
@@ -42,6 +48,7 @@ class _AddPetViewState extends State<AddPetView> {
             ),
             inputField(
                 textInputType: TextInputType.name,
+                hint: 'Suska',
                 onSaved: (v) {},
                 validator: (value) {
                   if (value.isEmpty) {
@@ -54,6 +61,7 @@ class _AddPetViewState extends State<AddPetView> {
             ),
             inputField(
                 textInputType: TextInputType.name,
+                hint: 'Bulldog',
                 onSaved: (v) {},
                 validator: (value) {
                   if (value.isEmpty) {
@@ -65,6 +73,7 @@ class _AddPetViewState extends State<AddPetView> {
               style: titleStyle,
             ),
             inputField(
+              hint: '2 years old',
                 textInputType: TextInputType.number,
                 onSaved: (v) {},
                 validator: (value) {
@@ -82,6 +91,7 @@ class _AddPetViewState extends State<AddPetView> {
             ),
             inputField(
               textInputType: TextInputType.name,
+              hint: 'Why you post this ?',
               onSaved: (v) {},
               onChanged: (value) {
                 if (value.length <= 200)

@@ -23,19 +23,17 @@ class _HomeViewState extends State<HomeView> {
   int tabIndex = 0;
   bool _isLoading = true;
   List<PetModel> _cats, _dogs;
-  ScrollController _scrollController = ScrollController();
   HomeController _homeController = HomeController();
 
   @override
   void initState() {
     _getPets();
-    listenScroll();
     super.initState();
   }
 
   void _getPets() async {
-    _cats = await _homeController.getPets('cats');
-    _dogs = await _homeController.getPets('dogs');
+    _cats = await _homeController.getPets('pets/cats');
+    _dogs = await _homeController.getPets('pets/dogs');
     setState(() {
       _isLoading = false;
     });
@@ -43,20 +41,17 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-
     final List<Widget> tabBarView = [
       _cats == null || _cats.isEmpty
           ? AltContent(tabIndex)
           : AnimatedListView(
-        items: _cats,
-        controller: _scrollController,
-      ),
+              items: _cats,
+            ),
       _dogs == null || _dogs.isEmpty
           ? AltContent(tabIndex)
           : AnimatedListView(
-        controller: _scrollController,
-        items: _dogs,
-      ),
+              items: _cats,
+            ),
     ];
 
     return Scaffold(
@@ -75,80 +70,51 @@ class _HomeViewState extends State<HomeView> {
                 padding: EdgeInsets.symmetric(horizontal: 25),
                 child: inputField(
                   hint: 'Search',
+                  readOnly: true,
+                  onTap: () => print('Navigate to search view'),
                   icon: FontAwesomeIcons.search,
-                  onSubmit: (String value) {
-                    hideStatusBar();
-                  },
                 ),
               ),
-              if (!hideSections)
-                AnimatedOpacity(
-                  duration: Duration(milliseconds: 750),
-                  opacity: opacity,
-                  curve: Curves.ease,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SquaredButton(
-                        petIndex: 0,
-                        tabIndex: tabIndex,
-                        icon: FontAwesomeIcons.cat,
-                        onTap: () {
-                          setState(() {
-                            tabIndex = 0;
-                          });
-                        },
-                      ),
-                      SquaredButton(
-                        icon: FontAwesomeIcons.dog,
-                        onTap: () {
-                          setState(() {
-                            tabIndex = 1;
-                          });
-                        },
-                        tabIndex: tabIndex,
-                        petIndex: 1,
-                      )
-                    ],
-                  ),
-                ),
-              _isLoading
-                  ? Expanded(
-                      child: CupertinoActivityIndicator(),
-                    )
-                  : Expanded(
-                      flex: 3,
-                      child: tabBarView[tabIndex],
+              Expanded(
+                child: _isLoading
+                    ? CupertinoActivityIndicator()
+                    : tabBarView[tabIndex],
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    color: kAccentColor.withOpacity(0.7),
+                    borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(25))),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SquaredButton(
+                      petIndex: 0,
+                      tabIndex: tabIndex,
+                      icon: FontAwesomeIcons.cat,
+                      onTap: () {
+                        setState(() {
+                          tabIndex = 0;
+                        });
+                      },
                     ),
+                    SquaredButton(
+                      icon: FontAwesomeIcons.dog,
+                      onTap: () {
+                        setState(() {
+                          tabIndex = 1;
+                        });
+                      },
+                      tabIndex: tabIndex,
+                      petIndex: 1,
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),
       ),
     );
-  }
-
-  bool hideSections = false;
-  double opacity = 1;
-
-  void listenScroll() {
-    double lastOffset = 0;
-    _scrollController.addListener(() {
-      if (_scrollController.offset <= lastOffset ||
-          _scrollController.offset < 0) {
-        setState(() {
-          opacity = 1;
-          hideSections = false;
-        });
-        if (_scrollController.offset > 0) lastOffset = _scrollController.offset;
-      } else {
-        setState(() {
-          opacity = 0;
-          Timer(Duration(milliseconds: 750), () {
-            hideSections = true;
-          });
-        });
-        lastOffset = _scrollController.offset;
-      }
-    });
   }
 }

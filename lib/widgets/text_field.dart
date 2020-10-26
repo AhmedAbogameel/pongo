@@ -12,6 +12,8 @@ Widget inputField({
   int counter,
   Function(String) onChanged,
   TextEditingController controller,
+  Function onTap,
+   bool readOnly = false,
   TextInputAction textInputAction = TextInputAction.done,
 }) {
   return Padding(
@@ -25,6 +27,8 @@ Widget inputField({
       obscuringCharacter: '*',
       maxLines: counter != null ? 5 : 1,
       keyboardType: textInputType,
+      onTap: onTap,
+      readOnly: readOnly,
       decoration: InputDecoration(
         fillColor: Colors.white,
         filled: true,
