@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pet_adoption/core/models/pet.dart';
+import 'package:pet_adoption/views/petDetails/controller.dart';
 import 'package:pet_adoption/widgets/fav_adoption_buttons.dart';
 import 'package:pet_adoption/views/petDetails/owner_tile.dart';
 import 'package:pet_adoption/views/petDetails/pet_image.dart';
@@ -15,7 +16,20 @@ class PetDetailsView extends StatefulWidget {
 }
 
 class _PetDetailsViewState extends State<PetDetailsView> {
-  bool isFavourite = false;
+  bool isFavourite;
+
+  FavouriteController _favouriteController = FavouriteController();
+  @override
+  void initState() {
+    _checkFavourite();
+    super.initState();
+  }
+
+  void _checkFavourite() async {
+    isFavourite = await _favouriteController.checkFavourite(widget.petModel);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,13 +47,22 @@ class _PetDetailsViewState extends State<PetDetailsView> {
                 textAlign: TextAlign.start,
               ),
               Spacer(),
-              FavAdoptionButtons(
-                favPressed: (){
-                  setState(() {
-                    isFavourite = !isFavourite;
-                  });
-                },
-                isFavourite: isFavourite,
+              AnimatedOpacity(
+                duration: Duration(milliseconds: 300),
+                opacity: isFavourite.toString() != 'null' ? 1 : 0,
+                child: FavAdoptionButtons(
+                  favPressed: () async {
+                    isFavourite
+                        ? await _favouriteController
+                            .removeFavourite(widget.petModel)
+                        : await _favouriteController
+                            .addFavourite(widget.petModel);
+                    setState(() {
+                      isFavourite = !isFavourite;
+                    });
+                  },
+                  isFavourite: isFavourite,
+                ),
               ),
             ],
           ),

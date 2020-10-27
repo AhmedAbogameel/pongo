@@ -7,5 +7,6 @@ class PrefsKeyWords {
   static const String photoUrl = 'photoUrl';
   static const String email = 'email';
   static const String userModel = 'userModel';
+  static const String idToken = 'idToken';
 
 }

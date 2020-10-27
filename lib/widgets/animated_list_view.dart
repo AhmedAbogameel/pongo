@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:pet_adoption/core/models/pet.dart';
-import 'package:pet_adoption/views/home/pet_tile.dart';
+import 'package:pet_adoption/widgets/pet_tile.dart';
 
 class AnimatedListView extends StatelessWidget {
   final List<PetModel> items;

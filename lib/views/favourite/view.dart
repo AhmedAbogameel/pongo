@@ -27,7 +27,7 @@ class _FavouriteViewState extends State<FavouriteView> {
     _getPets();
   }
 
-  void _getPets() async {
+  Future<void> _getPets() async {
     UserModel _user = UserModel();
     _pets = await _homeController.getPets('users/${_user.userId}/myFavourite');
     setState(() {
@@ -37,20 +37,22 @@ class _FavouriteViewState extends State<FavouriteView> {
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: defaultAppBar(context,title: 'My Favourite List'),
-      body: _isLoading
-          ? Center(
-        child: CupertinoActivityIndicator(),
-      )
-          : (_pets.isEmpty || _pets == null
-          ? Container(
-          alignment: Alignment.center,
-          width: double.infinity,
-          child: AltContent(randomNumber))
-          : AnimatedListView(
-        items: _pets,
-      )),
+    return RefreshIndicator(
+      onRefresh: _getPets,
+      child: Scaffold(
+        appBar: defaultAppBar(context,title: 'My Favourite List'),
+        body: _isLoading
+            ? Center(
+          child: CupertinoActivityIndicator(),
+        )
+            : (_pets.isEmpty || _pets == null
+            ? Container(
+            alignment: Alignment.center,
+            width: double.infinity,
+            child: AltContent(randomNumber))
+            : AnimatedListView(items: _pets)
+        ),
+      ),
     );
   }
 }

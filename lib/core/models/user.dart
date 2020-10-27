@@ -9,6 +9,7 @@ class UserModel {
   String photoUrl;
   String userId;
   String message;
+  String idToken;
 
   factory UserModel(){
     return _userModel;
@@ -21,6 +22,7 @@ class UserModel {
     photoUrl = json[PrefsKeyWords.photoUrl];
     email = json[PrefsKeyWords.email];
     userId = json[PrefsKeyWords.userId];
+    idToken = json[PrefsKeyWords.idToken];
   }
 
   Map toJson(){
@@ -29,6 +31,7 @@ class UserModel {
     data[PrefsKeyWords.photoUrl] = photoUrl;
     data[PrefsKeyWords.email] = email;
     data[PrefsKeyWords.userId] = userId;
+    data[PrefsKeyWords.idToken]= idToken;
     return data;
   }
 }
