@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:pet_adoption/core/keywords/api.dart';
 import 'package:pet_adoption/core/models/user.dart';
@@ -31,7 +30,8 @@ class LoginController {
       _userModel.displayName = decodedResponse[UserKeywords.displayName];
       _userModel.photoUrl = decodedResponse[UserKeywords.photoUrl];
       _userModel.userId = decodedResponse[UserKeywords.localId];
-      await PrefsFunctions().storeUserModel(_userModel);
+      _userModel.idToken = decodedResponse[UserKeywords.idToken];
+      await PrefsFunctions().storeUserModel();
     }
     return _userModel;
   }

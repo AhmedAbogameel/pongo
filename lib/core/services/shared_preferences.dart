@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PrefsFunctions {
   SharedPreferences _preferences;
 
-  Future<void> storeUserModel(UserModel userModel) async {
+  Future<void> storeUserModel() async {
     _preferences = await SharedPreferences.getInstance();
     _preferences.clear();
     _preferences.setString(
@@ -27,6 +27,7 @@ class PrefsFunctions {
       UserModel _userModel = UserModel();
       _userModel.userId = userPrefsInfo[PrefsKeyWords.userId];
       _userModel.photoUrl = userPrefsInfo[PrefsKeyWords.photoUrl];
+      _userModel.idToken = userPrefsInfo[PrefsKeyWords.idToken];
       _userModel.displayName = userPrefsInfo[PrefsKeyWords.displayName];
       _userModel.email = userPrefsInfo[PrefsKeyWords.email];
     }

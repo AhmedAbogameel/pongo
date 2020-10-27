@@ -34,7 +34,7 @@ class SignUpController {
       _userModel.photoUrl = '';
       _userModel.userId = userId;
       _addUserToDB(email, displayName, userId);
-      await PrefsFunctions().storeUserModel(_userModel);
+      await PrefsFunctions().storeUserModel();
     }
     return _userModel;
   }
