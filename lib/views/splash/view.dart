@@ -17,7 +17,7 @@ class _SplashViewState extends State<SplashView> {
       Duration(seconds: 3),
       () => Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (_) => UserModel().userId == null ? LoginView() : MenuFrame(),
+          builder: (_) => UserSingleton().userId == null ? LoginView() : MenuFrame(),
         ),
       ),
     );

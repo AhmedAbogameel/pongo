@@ -39,7 +39,7 @@ class _PetDetailsViewState extends State<PetDetailsView> {
             children: [
               PetImage(widget.petModel.photoUrl),
               Spacer(),
-              OwnerTile(),
+              OwnerTile(widget.petModel.userId),
               Text(
                 widget.petModel.description,
                 // ignore: deprecated_member_use

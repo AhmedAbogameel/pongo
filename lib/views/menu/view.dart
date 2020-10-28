@@ -73,13 +73,18 @@ class _MenuViewState extends State<MenuView> {
     );
   }
 
+  initState(){
+    super.initState();
+    hideStatusBar();
+  }
+
   final style = TextStyle(
     color: Colors.white.withOpacity(0.5),
     fontSize: 20.0,
     fontWeight: FontWeight.w600,
   );
 
-  UserModel _userModel = UserModel();
+  UserSingleton _userModel = UserSingleton();
 
   @override
   Widget build(BuildContext context) {

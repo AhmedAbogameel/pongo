@@ -28,7 +28,7 @@ class _AddPetViewState extends State<AddPetView> {
   int age;
   int descriptionLength = 0;
   File image;
-  UserModel _userModel = UserModel();
+  UserSingleton _userModel = UserSingleton();
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,7 @@ class _AddPetViewState extends State<AddPetView> {
             ),
             inputField(
                 textInputType: TextInputType.name,
-                hint: 'Suska',
+                hint: 'Pongo',
                 textInputAction: TextInputAction.next,
                 onSaved: (v)=> petName = v,
                 validator: (value) {

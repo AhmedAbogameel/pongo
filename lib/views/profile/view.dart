@@ -24,11 +24,11 @@ class _ProfileViewState extends State<ProfileView> {
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
   ProfileController _profileController = ProfileController();
   TextEditingController _nameController = TextEditingController();
-  final UserModel _userModel = UserModel();
+  final UserSingleton _userModel = UserSingleton();
 
-  String displayName = UserModel().displayName;
-  String photoUrl = UserModel().photoUrl;
-  String email = UserModel().email;
+  String displayName = UserSingleton().displayName;
+  String photoUrl = UserSingleton().photoUrl;
+  String email = UserSingleton().email;
   String password;
   File image;
   @override

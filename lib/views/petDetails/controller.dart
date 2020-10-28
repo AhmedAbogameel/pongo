@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class FavouriteController {
 
-  final url = 'https://pongoo.firebaseio.com/users/${UserModel().userId}/myFavourite.json';
+  final url = 'https://pongoo.firebaseio.com/users/${UserSingleton().userId}/myFavourite.json';
 
   Future<void> addFavourite(PetModel petModel)async{
     await http.post(url,body: jsonEncode(petModel.toJson()));
@@ -22,7 +22,7 @@ class FavouriteController {
           petKey = key;
         }
       });
-      await http.delete('https://pongoo.firebaseio.com/users/${UserModel().userId}/myFavourite/$petKey.json');
+      await http.delete('https://pongoo.firebaseio.com/users/${UserSingleton().userId}/myFavourite/$petKey.json');
     }
   }
 

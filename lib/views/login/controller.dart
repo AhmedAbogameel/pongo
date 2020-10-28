@@ -7,10 +7,10 @@ import 'package:pet_adoption/core/services/shared_preferences.dart';
 class LoginController {
   final String _apiKey = 'AIzaSyCMEFcYYsswdlK5hVOmn_PsPjw1cDjN9Vc';
 
-  Future<UserModel> login(String email,String password)async{
+  Future<UserSingleton> login(String email,String password)async{
     final String url =
         'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=$_apiKey';
-    UserModel _userModel = UserModel();
+    UserSingleton _userModel = UserSingleton();
     final response = await http.post(
       url,
       body: jsonEncode(

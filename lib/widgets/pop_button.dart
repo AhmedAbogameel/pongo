@@ -7,7 +7,7 @@ class PopButton extends StatelessWidget {
     return IconButton(
       icon: Icon(
         Icons.arrow_back_ios,
-        color: kBGColor,
+        // color: kBGColor,
         size: 30,
       ),
       onPressed: () => Navigator.of(context).pop(),

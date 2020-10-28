@@ -9,13 +9,13 @@ import 'package:http/http.dart' as http;
 import 'package:pet_adoption/core/services/shared_preferences.dart';
 
 class ProfileController {
-  UserModel _userModel = UserModel();
+  UserSingleton _userModel = UserSingleton();
   String _authUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyCMEFcYYsswdlK5hVOmn_PsPjw1cDjN9Vc';
-  String _dBUrl = 'https://pongoo.firebaseio.com/users/${UserModel().userId}.json';
+  String _dBUrl = 'https://pongoo.firebaseio.com/users/${UserSingleton().userId}.json';
 
   Future<void> updateProfile(String displayName ,String photoUrl)async{
     final response = await http.post(_authUrl,body: jsonEncode({
-      UserKeywords.idToken : UserModel().idToken,
+      UserKeywords.idToken : UserSingleton().idToken,
       UserKeywords.displayName : displayName,
       UserKeywords.photoUrl : photoUrl,
     }));

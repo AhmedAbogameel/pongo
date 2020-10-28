@@ -28,7 +28,7 @@ class _FavouriteViewState extends State<FavouriteView> {
   }
 
   Future<void> _getPets() async {
-    UserModel _user = UserModel();
+    UserSingleton _user = UserSingleton();
     _pets = await _homeController.getPets('users/${_user.userId}/myFavourite');
     setState(() {
       _isLoading = false;

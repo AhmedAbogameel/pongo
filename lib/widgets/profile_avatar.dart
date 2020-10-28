@@ -3,7 +3,9 @@ import 'package:pet_adoption/core/models/user.dart';
 import '../constants.dart';
 
 class ProfileAvatar extends StatelessWidget {
-  final UserModel _userModel = UserModel();
+  final UserSingleton _userModel = UserSingleton();
+  final String photoUrl;
+  ProfileAvatar(this.photoUrl);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -11,7 +13,7 @@ class ProfileAvatar extends StatelessWidget {
       child: CircleAvatar(
         radius: 25,
         backgroundColor: kPrimaryColor,
-        backgroundImage: _userModel.photoUrl == null || _userModel.photoUrl == '' ? AssetImage(logoLocation) : NetworkImage(_userModel.photoUrl),
+        backgroundImage: photoUrl != null ?  NetworkImage(photoUrl) : _userModel.photoUrl == null || _userModel.photoUrl == '' ? AssetImage(logoLocation) : NetworkImage(_userModel.photoUrl) ,
       ),
     );
   }

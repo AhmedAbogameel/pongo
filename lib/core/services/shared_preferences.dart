@@ -12,8 +12,8 @@ class PrefsFunctions {
     _preferences.setString(
       PrefsKeyWords.userModel,
       jsonEncode(
-        UserModel.fromJson(
-          UserModel().toJson(),
+        UserSingleton.fromJson(
+          UserSingleton().toJson(),
         ),
       ),
     );
@@ -24,7 +24,7 @@ class PrefsFunctions {
     if(_preferences.containsKey(PrefsKeyWords.userModel)){
       final userPrefsInfo =
       jsonDecode(_preferences.getString(PrefsKeyWords.userModel));
-      UserModel _userModel = UserModel();
+      UserSingleton _userModel = UserSingleton();
       _userModel.userId = userPrefsInfo[PrefsKeyWords.userId];
       _userModel.photoUrl = userPrefsInfo[PrefsKeyWords.photoUrl];
       _userModel.idToken = userPrefsInfo[PrefsKeyWords.idToken];

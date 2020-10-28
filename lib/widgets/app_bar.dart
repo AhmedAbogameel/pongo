@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pet_adoption/core/models/user.dart';
 import 'package:pet_adoption/widgets/profile_avatar.dart';
 
 Widget appBar(Function menuCallBack){
@@ -17,7 +18,7 @@ Widget appBar(Function menuCallBack){
       ],
     ),
     actions: [
-      ProfileAvatar(),
+      ProfileAvatar(UserSingleton().photoUrl),
     ],
     backgroundColor: Colors.transparent,
     leading: IconButton(

@@ -27,7 +27,7 @@ class _AdoptionViewState extends State<AdoptionView> {
   }
 
   void _getPets() async {
-    UserModel _user = UserModel();
+    UserSingleton _user = UserSingleton();
     _pets = await _homeController.getPets('users/${_user.userId}/myAdoption');
     setState(() {
       _isLoading = false;
