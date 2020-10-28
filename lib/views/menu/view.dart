@@ -6,8 +6,9 @@ import 'package:pet_adoption/views/addPet/view.dart';
 import 'package:pet_adoption/views/adoption/view.dart';
 import 'package:pet_adoption/views/favourite/view.dart';
 import 'package:pet_adoption/views/login/view.dart';
+import 'package:pet_adoption/views/messages/view.dart';
 import 'package:pet_adoption/views/profile/view.dart';
-import 'package:pet_adoption/views/test.dart';
+import 'package:pet_adoption/views/settings/view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuView extends StatefulWidget {
@@ -39,7 +40,7 @@ class _MenuViewState extends State<MenuView> {
     Container(),
     AddPetView(),
     FavouriteView(),
-    TestView(),
+    MessagesView(),
     ProfileView(),
   ];
 
@@ -160,7 +161,8 @@ class _MenuViewState extends State<MenuView> {
                         ],
                       ),
                       onPressed: () {
-                        print('navigate to setting');
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (_) => SettingsView()));
                       },
                     ),
                     Text(

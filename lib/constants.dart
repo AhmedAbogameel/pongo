@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 const String logoLocation = 'assets/images/logo.png';
 
 const Color kPrimaryColor = Color.fromRGBO(189, 200, 204, 1);
-const Color kAccentColor = Color.fromRGBO(56, 97, 96, 1);
+Color kAccentColor = Color.fromRGBO(56, 97, 96, 1);
 const Color kBGColor = Color.fromRGBO(244, 244, 244, 1);
 
 void hideStatusBar()=> SystemChrome.setEnabledSystemUIOverlays([]);

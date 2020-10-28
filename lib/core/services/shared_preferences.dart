@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
+import 'package:pet_adoption/constants.dart';
 import 'package:pet_adoption/core/keywords/shared_preferences.dart';
 import 'package:pet_adoption/core/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,6 +32,10 @@ class PrefsFunctions {
       _userModel.idToken = userPrefsInfo[PrefsKeyWords.idToken];
       _userModel.displayName = userPrefsInfo[PrefsKeyWords.displayName];
       _userModel.email = userPrefsInfo[PrefsKeyWords.email];
+    }
+    int storedAccentColor = _preferences.getInt('accentColor');
+    if(storedAccentColor != null){
+      kAccentColor = Color(storedAccentColor);
     }
   }
 }

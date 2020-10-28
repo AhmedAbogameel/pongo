@@ -37,6 +37,9 @@ dependencies:
   image_picker: ^0.6.7+12
   firebase_storage: ^4.0.1
   sliding_up_panel: ^1.0.2
+  o_color_picker: ^0.1.0
+  share: ^0.6.5+4
+  url_launcher: ^5.7.8
 
 dev_dependencies:
   flutter_test:
