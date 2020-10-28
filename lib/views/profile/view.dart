@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pet_adoption/core/models/user.dart';
 import 'package:pet_adoption/views/forgetPassword/view.dart';
 import 'package:pet_adoption/views/login/controller.dart';
@@ -28,6 +30,7 @@ class _ProfileViewState extends State<ProfileView> {
   String photoUrl = UserModel().photoUrl;
   String email = UserModel().email;
   String password;
+  File image;
   @override
   void initState() {
     _nameController.text = displayName;
@@ -57,10 +60,10 @@ class _ProfileViewState extends State<ProfileView> {
               child: CircleAvatar(
                 backgroundColor: kAccentColor.withOpacity(0.7),
                 radius: sizeFromHeight(context, 8),
-                backgroundImage: photoUrl == '' || photoUrl == null ? AssetImage(logoLocation) : NetworkImage(_userModel.photoUrl),
+                backgroundImage: AssetImage(photoUrl == '' || photoUrl == null || image == null ? logoLocation : image.path),
               ),
               onTap: ()async {
-                photoUrl = await _profileController.uploadFile();
+                image = await ImagePicker.pickImage(source: ImageSource.gallery);
                 setState(() {});
               },
             ),
@@ -81,15 +84,7 @@ class _ProfileViewState extends State<ProfileView> {
               },
             ),
             Text(
-              'Email',
-              style: titleStyle,
-            ),
-            inputField(
-              hint: _userModel.email,
-              readOnly: true,
-            ),
-            Text(
-              'Your Password',
+              'Password',
               style: titleStyle,
             ),
             inputField(
@@ -125,6 +120,7 @@ class _ProfileViewState extends State<ProfileView> {
                     });
                     return;
                   }
+                  photoUrl = await _profileController.uploadFile(image: image);
                   await _profileController.updateProfile(
                       displayName, photoUrl ?? '');
                   Navigator.pushReplacement(context,

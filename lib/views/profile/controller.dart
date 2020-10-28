@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pet_adoption/core/keywords/api.dart';
 import 'package:pet_adoption/core/models/user.dart';
@@ -29,11 +30,9 @@ class ProfileController {
     await PrefsFunctions().storeUserModel();
   }
 
-  Future<String> uploadFile({String path}) async {
-    File image;
+  Future<String> uploadFile({String path,@required File image}) async {
     String imgURL;
     try {
-      image = await ImagePicker.pickImage(source: ImageSource.gallery);
       StorageReference storageReference = FirebaseStorage.instance.ref().child(path ?? '${_userModel.userId}/userProfile');
       StorageUploadTask uploadTask = storageReference.putFile(image);
       await uploadTask.onComplete;
@@ -43,7 +42,6 @@ class ProfileController {
       });
       return imgURL;
     } catch (e) {
-      print('error');
       return e.toString();
     }
   }

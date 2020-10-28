@@ -28,7 +28,7 @@ class LoginController {
       _userModel.message = null;
       _userModel.email = decodedResponse[UserKeywords.email];
       _userModel.displayName = decodedResponse[UserKeywords.displayName];
-      _userModel.photoUrl = decodedResponse[UserKeywords.photoUrl];
+      _userModel.photoUrl = decodedResponse[UserKeywords.profilePicture];
       _userModel.userId = decodedResponse[UserKeywords.localId];
       _userModel.idToken = decodedResponse[UserKeywords.idToken];
       await PrefsFunctions().storeUserModel();

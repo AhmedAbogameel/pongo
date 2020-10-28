@@ -1,8 +1,17 @@
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pet_adoption/constants.dart';
+import 'package:pet_adoption/core/models/pet.dart';
+import 'package:pet_adoption/core/models/user.dart';
+import 'package:pet_adoption/views/addPet/controller.dart';
 import 'package:pet_adoption/views/home/squared_button.dart';
+import 'package:pet_adoption/views/menu/menu_frame.dart';
+import 'package:pet_adoption/views/profile/controller.dart';
+import 'package:pet_adoption/widgets/snack_bar.dart';
 import 'package:pet_adoption/widgets/text_field.dart';
 import 'package:pet_adoption/widgets/confirm_button.dart';
 import 'package:pet_adoption/widgets/default_app_bar.dart';
@@ -13,9 +22,13 @@ class AddPetView extends StatefulWidget {
 }
 
 class _AddPetViewState extends State<AddPetView> {
+  bool _isLoading = false;
   int petIndex;
-  String gender;
+  String gender,petName,kind,description;
+  int age;
   int descriptionLength = 0;
+  File image;
+  UserModel _userModel = UserModel();
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -38,9 +51,9 @@ class _AddPetViewState extends State<AddPetView> {
               child: CircleAvatar(
                 backgroundColor: kAccentColor.withOpacity(0.7),
                 radius: sizeFromHeight(context, 8),
-                child: Text('Upload pet photo'),
+                backgroundImage: AssetImage(image == null ? logoLocation : image.path),
               ),
-              onDoubleTap: () {},
+              onTap: () async => image = await ImagePicker.pickImage(source: ImageSource.gallery),
             ),
             Text(
               'Name',
@@ -49,7 +62,8 @@ class _AddPetViewState extends State<AddPetView> {
             inputField(
                 textInputType: TextInputType.name,
                 hint: 'Suska',
-                onSaved: (v) {},
+                textInputAction: TextInputAction.next,
+                onSaved: (v)=> petName = v,
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter your pet Name';
@@ -62,7 +76,8 @@ class _AddPetViewState extends State<AddPetView> {
             inputField(
                 textInputType: TextInputType.name,
                 hint: 'Bulldog',
-                onSaved: (v) {},
+                textInputAction: TextInputAction.next,
+                onSaved: (v)=> kind = v,
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter your pet kind';
@@ -74,8 +89,9 @@ class _AddPetViewState extends State<AddPetView> {
             ),
             inputField(
               hint: '2 years old',
+                textInputAction: TextInputAction.next,
                 textInputType: TextInputType.number,
-                onSaved: (v) {},
+                onSaved: (v)=> age = int.parse(v),
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter your pet age';
@@ -92,7 +108,7 @@ class _AddPetViewState extends State<AddPetView> {
             inputField(
               textInputType: TextInputType.name,
               hint: 'Why you post this ?',
-              onSaved: (v) {},
+              onSaved: (v)=> description = v,
               onChanged: (value) {
                 if (value.length <= 200)
                   setState(() {
@@ -167,15 +183,40 @@ class _AddPetViewState extends State<AddPetView> {
                 ),
               ],
             ),
-            ConfirmButton(onPressed: petIndex == null || gender == null
-                ? null
-                : () {
-              if (_globalKey.currentState.validate()) {
-                SystemChrome.setEnabledSystemUIOverlays([]);
-                _globalKey.currentState.save();
-                // petIndex , gender
-              }
-            },)
+            Builder(
+              builder: (ctx)=> _isLoading ? Center(child: CupertinoActivityIndicator(),) : ConfirmButton(onPressed: petIndex == null || gender == null || image == null
+                  ? null
+                  : () async {
+                if (_globalKey.currentState.validate()) {
+                  setState(() {
+                    _isLoading = true;
+                  });
+                  hideStatusBar();
+                  _globalKey.currentState.save();
+                  String _path = petIndex == 0 ? 'cats' : 'dogs';
+                  String photoUrl = await ProfileController().uploadFile(path: '${_userModel.userId}/$petName',image: image);
+                  bool isMale = gender == 'Male' ? true : false;
+                  PetModel _petModel = PetModel(
+                    age: age,
+                    description: description,
+                    isMale: isMale,
+                    kind: kind,
+                    petName: petName,
+                    photoUrl: photoUrl,
+                    publishAt: DateTime.now().millisecondsSinceEpoch,
+                    userId: _userModel.userId,
+                  );
+                  String message = await AddPetController().addPet(_path, _petModel);
+                  showSnackBar(ctx,title: message, onPressed: (){},label: '');
+                  setState(() {
+                    _isLoading = false;
+                  });
+                  if(message == 'Done'){
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=> MenuFrame()));
+                  }
+                }
+              },),
+            )
           ],
         ),
       ),

@@ -6,7 +6,7 @@ class UserKeywords {
   static const String photoUrl = 'photoUrl';
   static const String localId = 'localId';
   static const String idToken = 'idToken';
-
+  static const String profilePicture = 'profilePicture';
 }
 
 class PetKeywords {
