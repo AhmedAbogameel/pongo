@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pet_adoption/widgets/snack_bar.dart';
 
-import '../constants.dart';
+import '../../constants.dart';
 
 class FavAdoptionButtons extends StatelessWidget {
   final bool isFavourite;
@@ -47,13 +47,13 @@ class FavAdoptionButtons extends StatelessWidget {
             height: sizeFromHeight(context, 13),
             width: sizeFromWidth(context, 2),
             child: RaisedButton(
-              onPressed: () {},
+              onPressed: (){},
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),
               colorBrightness: Brightness.dark,
               child: Text(
-                'Adoption',
+                'Message Owner',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               color: kAccentColor,

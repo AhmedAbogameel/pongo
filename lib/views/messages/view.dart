@@ -18,7 +18,7 @@ class MessagesView extends StatelessWidget {
       body: AnimationLimiter(
         child: ListView.builder(
           padding: EdgeInsets.fromLTRB(25, 25, 25, 0),
-          itemCount: 3,
+          itemCount: 1,
           itemBuilder: (_, listIndex) => AnimationConfiguration.staggeredList(
             position: listIndex,
             duration: const Duration(seconds: 1),

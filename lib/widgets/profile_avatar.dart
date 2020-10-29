@@ -13,7 +13,11 @@ class ProfileAvatar extends StatelessWidget {
       child: CircleAvatar(
         radius: 25,
         backgroundColor: kPrimaryColor,
-        backgroundImage: photoUrl != null ?  NetworkImage(photoUrl) : _userModel.photoUrl == null || _userModel.photoUrl == '' ? AssetImage(logoLocation) : NetworkImage(_userModel.photoUrl) ,
+        backgroundImage: photoUrl != null
+            ? NetworkImage(photoUrl)
+            : _userModel.photoUrl == null || _userModel.photoUrl == ''
+                ? AssetImage(logoLocation)
+                : NetworkImage(_userModel.photoUrl),
       ),
     );
   }
