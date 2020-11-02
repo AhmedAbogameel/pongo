@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:pet_adoption/core/keywords/api.dart';
 import 'package:pet_adoption/core/models/user.dart';
+import 'package:pet_adoption/core/services/fcm.dart';
 import 'package:pet_adoption/core/services/shared_preferences.dart';
 
 class LoginController {
@@ -32,6 +33,7 @@ class LoginController {
       _userModel.userId = decodedResponse[UserKeywords.localId];
       _userModel.idToken = decodedResponse[UserKeywords.idToken];
       await PrefsFunctions().storeUserModel();
+      await FCM().setFCM();
     }
     return _userModel;
   }

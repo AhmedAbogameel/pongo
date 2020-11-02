@@ -27,7 +27,7 @@ class _SettingsViewState extends State<SettingsView> {
           style: subtitleStyle,
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

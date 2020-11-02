@@ -7,6 +7,7 @@ class UserModel {
   String photoUrl;
   String userId;
   String idToken;
+  List<String> fcmTokens;
 
   UserModel({
     this.photoUrl,this.userId,this.email,this.displayName
@@ -28,6 +29,5 @@ class UserModel {
     data[PrefsKeyWords.userId] = userId;
     data[PrefsKeyWords.idToken]= idToken;
     return data;
-  
-}
+  }
 }

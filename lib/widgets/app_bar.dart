@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pet_adoption/constants.dart';
 import 'package:pet_adoption/core/models/user.dart';
 import 'package:pet_adoption/widgets/profile_avatar.dart';
 
@@ -18,7 +19,8 @@ Widget appBar(Function menuCallBack){
       ],
     ),
     actions: [
-      ProfileAvatar(UserSingleton().photoUrl),
+      UserSingleton().photoUrl != null ?
+        ProfileAvatar(UserSingleton().photoUrl) : CircleAvatar(radius: 25,backgroundColor: kBGColor,),
     ],
     backgroundColor: Colors.transparent,
     leading: IconButton(

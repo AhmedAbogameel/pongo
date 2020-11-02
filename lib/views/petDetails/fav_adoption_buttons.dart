@@ -52,9 +52,11 @@ class FavAdoptionButtons extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
               ),
               colorBrightness: Brightness.dark,
-              child: Text(
-                'Message Owner',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              child: FittedBox(
+                child: Text(
+                  'Message Owner',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
               ),
               color: kAccentColor,
             ),

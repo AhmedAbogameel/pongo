@@ -92,7 +92,7 @@ class _HomeViewState extends State<HomeView> {
                 SlidingUpPanel(
                   controller: _panelController,
                   minHeight: sizeFromHeight(context, 20),
-                  maxHeight: sizeFromHeight(context,5),
+                  maxHeight: sizeFromHeight(context,4.7),
                   onPanelOpened: ()=>
                     setState(()=> _absorbingPanel = false),
                   onPanelClosed: ()=>

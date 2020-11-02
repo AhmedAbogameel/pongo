@@ -2,15 +2,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_adoption/core/keywords/firestore.dart';
 import 'package:pet_adoption/core/models/user.dart';
+import 'package:pet_adoption/core/services/fcm.dart';
 import '../../constants.dart';
 
 class SendMessageButton extends StatelessWidget {
   final TextEditingController messageController;
   final String wantedUserId;
-  SendMessageButton(this.messageController, this.wantedUserId);
+  final List<String> fcmTokens;
+  SendMessageButton(this.messageController, this.wantedUserId,this.fcmTokens);
   final UserSingleton _userSingleton = UserSingleton();
+  final FCM _fcm = FCM();
   @override
   Widget build(BuildContext context) {
+    print(fcmTokens);
     return Padding(
       padding: const EdgeInsets.only(bottom: 6.5),
       child: InkWell(
@@ -42,13 +46,18 @@ class SendMessageButton extends StatelessWidget {
               FirestoreKeyWords.userName:  _userSingleton.displayName,
               FirestoreKeyWords.userId:  _userSingleton.userId,
             });
-            messageController.clear();
-            FirebaseFirestore.instance.collection('chats').doc(_userSingleton.userId).update({
+            FirebaseFirestore.instance.collection('chats').doc(_userSingleton.userId).set({
               wantedUserId : Timestamp.now(),
             });
-            FirebaseFirestore.instance.collection('chats').doc(wantedUserId).update({
+            FirebaseFirestore.instance.collection('chats').doc(wantedUserId).set({
               _userSingleton.userId : Timestamp.now(),
             });
+            if(fcmTokens != null){
+              fcmTokens.forEach((element)async{
+                await _fcm.pushNotification(sender: UserSingleton().displayName, message: messageController.text, fcm: element);
+              });
+            }
+            messageController.clear();
           }
         },
       ),

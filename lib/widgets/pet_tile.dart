@@ -12,7 +12,7 @@ class PetCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+        padding: EdgeInsets.fromLTRB(20,10,0,10),
         child: Row(
           children: [
             Hero(
@@ -67,7 +67,7 @@ class PetCard extends StatelessWidget {
                 Positioned(
                   right: 15,
                   top: 15,
-                  // mars & venus
+
                   child: Icon(petModel.isMale ? FontAwesomeIcons.mars : FontAwesomeIcons.venus,color: kAccentColor,size: 35,),
                 ),
               ],

@@ -15,7 +15,7 @@ class PetInfoContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: sizeFromHeight(context,8),
+        height: sizeFromHeight(context,7.5),
         padding: EdgeInsets.symmetric(horizontal: 30),
         margin: EdgeInsets.symmetric(horizontal: sizeFromWidth(context, 7)),
         child: Column(
@@ -29,7 +29,6 @@ class PetInfoContainer extends StatelessWidget {
                 Icon(isMale ? FontAwesomeIcons.mars : FontAwesomeIcons.venus,color: kAccentColor,size: 30,)
               ],
             ),
-            SizedBox(height: 15 ,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

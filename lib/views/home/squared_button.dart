@@ -34,7 +34,7 @@ class SquaredButton extends StatelessWidget {
           padding: const EdgeInsets.only(right: 50),
           child: Text(
             petIndex == 0 ? 'Cats' : 'Dogs',
-            style: TextStyle(fontSize: 20,color: kPrimaryColor,fontWeight: FontWeight.w900),
+            style: TextStyle(fontSize: 15,color: kPrimaryColor,fontWeight: FontWeight.w900),
           ),
         ),
       ],

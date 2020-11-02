@@ -39,7 +39,7 @@ class _ChatViewState extends State<ChatView> {
                   child: inputField(
                       controller: messageController, hint: 'Send Message...'),
                 ),
-                SendMessageButton(messageController,widget.user.userId),
+                SendMessageButton(messageController,widget.user.userId,widget.user.fcmTokens),
               ],
             ),
           ],
