@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pet_adoption/core/models/user_model.dart';
 import 'package:pet_adoption/widgets/profile_avatar.dart';
 import '../../constants.dart';
 
-Widget chatAppBar(BuildContext context){
+Widget chatAppBar(BuildContext context,UserModel user){
   final textTheme = Theme.of(context).textTheme;
   return AppBar(
     title: Row(
@@ -13,9 +14,10 @@ Widget chatAppBar(BuildContext context){
           height: 40,
           padding: EdgeInsets.all(1),
           child: Hero(
-            tag: '0',
+            tag: user.photoUrl,
             child: ProfileAvatar(
-                'https://alkhabaralyemeni.net/wp-content/uploads/2020/03/image-2-1.jpg'),
+                user.photoUrl,
+            ),
           ),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
@@ -23,7 +25,7 @@ Widget chatAppBar(BuildContext context){
           ),
         ),
         Text(
-          'Chat Name',
+          user.displayName,
           // ignore: deprecated_member_use
           style: textTheme.body1,
         ),

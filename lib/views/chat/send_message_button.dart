@@ -6,7 +6,8 @@ import '../../constants.dart';
 
 class SendMessageButton extends StatelessWidget {
   final TextEditingController messageController;
-  SendMessageButton(this.messageController);
+  final String wantedUserId;
+  SendMessageButton(this.messageController, this.wantedUserId);
   final UserSingleton _userSingleton = UserSingleton();
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class SendMessageButton extends StatelessWidget {
         onTap: () {
           if (messageController.text.isNotEmpty) {
             FirebaseFirestore.instance
-                .collection('${FirestoreKeyWords.chats}/${_userSingleton.userId}/aaa')
+                .collection('${FirestoreKeyWords.chats}/${_userSingleton.userId}/$wantedUserId')
                 .add({
               FirestoreKeyWords.text: messageController.text,
               FirestoreKeyWords.sentAt: Timestamp.now(),
@@ -34,7 +35,7 @@ class SendMessageButton extends StatelessWidget {
               FirestoreKeyWords.userId: _userSingleton.userId,
             });
             FirebaseFirestore.instance
-                .collection('${FirestoreKeyWords.chats}/aaa/${_userSingleton.userId}')
+                .collection('${FirestoreKeyWords.chats}/$wantedUserId/${_userSingleton.userId}')
                 .add({
               FirestoreKeyWords.text: messageController.text,
               FirestoreKeyWords.sentAt: Timestamp.now(),
@@ -42,6 +43,12 @@ class SendMessageButton extends StatelessWidget {
               FirestoreKeyWords.userId:  _userSingleton.userId,
             });
             messageController.clear();
+            FirebaseFirestore.instance.collection('chats').doc(_userSingleton.userId).update({
+              wantedUserId : Timestamp.now(),
+            });
+            FirebaseFirestore.instance.collection('chats').doc(wantedUserId).update({
+              _userSingleton.userId : Timestamp.now(),
+            });
           }
         },
       ),

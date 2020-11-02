@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pet_adoption/core/models/pet.dart';
+import 'package:pet_adoption/core/models/user.dart';
+import 'package:pet_adoption/core/models/user_model.dart';
+import 'package:pet_adoption/core/services/get_user_by_uid.dart';
+import 'package:pet_adoption/views/chat/view.dart';
 import 'package:pet_adoption/views/petDetails/controller.dart';
 import 'package:pet_adoption/views/petDetails/fav_adoption_buttons.dart';
 import 'package:pet_adoption/views/petDetails/owner_tile.dart';
@@ -17,12 +21,18 @@ class PetDetailsView extends StatefulWidget {
 
 class _PetDetailsViewState extends State<PetDetailsView> {
   bool isFavourite;
+  UserModel _user = UserModel();
 
   FavouriteController _favouriteController = FavouriteController();
   @override
   void initState() {
     _checkFavourite();
+    _getUser();
     super.initState();
+  }
+  
+  void _getUser()async{
+    _user = await getUserByUID(widget.petModel.userId);
   }
 
   void _checkFavourite() async {
@@ -62,6 +72,9 @@ class _PetDetailsViewState extends State<PetDetailsView> {
                     });
                   },
                   isFavourite: isFavourite,
+                  messagePressed: UserSingleton().userId == widget.petModel.userId ? null : ()=>
+                    Navigator.of(context).push(MaterialPageRoute(builder: (_)=> ChatView(_user)))
+                  ,
                 ),
               ),
             ],

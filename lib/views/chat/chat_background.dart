@@ -13,7 +13,8 @@ class ChatBackground extends StatelessWidget {
             colorFilter: ColorFilter.mode(kPrimaryColor, BlendMode.dstATop),
             image: NetworkImage(
                 'https://i.pinimg.com/originals/ca/cb/fc/cacbfcff3d9472212d9c3ffbb4085ced.jpg'),
-            fit: BoxFit.fitWidth),
+            fit: BoxFit.cover,
+        ),
       ),
     );
   }

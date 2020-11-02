@@ -3,17 +3,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_adoption/core/keywords/firestore.dart';
 import 'package:pet_adoption/core/models/user.dart';
-
 import 'message_bubble.dart';
 
 class MessagesList extends StatelessWidget {
+  MessagesList(this.wantedUserId);
+  final String wantedUserId;
   final UserSingleton _userSingleton = UserSingleton();
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: StreamBuilder(
         stream: FirebaseFirestore.instance
-            .collection('${FirestoreKeyWords.chats}/${_userSingleton.userId}/aaa')
+            .collection('${FirestoreKeyWords.chats}/${_userSingleton.userId}/$wantedUserId')
             .orderBy('sentAt', descending: true)
             .snapshots(),
         builder: (_, snapShot) {

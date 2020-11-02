@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pet_adoption/widgets/snack_bar.dart';
-
 import '../../constants.dart';
 
 class FavAdoptionButtons extends StatelessWidget {
   final bool isFavourite;
   final Function favPressed;
-  FavAdoptionButtons({this.isFavourite, this.favPressed});
+  final Function messagePressed;
+  FavAdoptionButtons({this.isFavourite, this.favPressed,this.messagePressed});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,7 +47,7 @@ class FavAdoptionButtons extends StatelessWidget {
             height: sizeFromHeight(context, 13),
             width: sizeFromWidth(context, 2),
             child: RaisedButton(
-              onPressed: (){},
+              onPressed: messagePressed,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),
