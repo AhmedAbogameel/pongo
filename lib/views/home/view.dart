@@ -50,12 +50,12 @@ class _HomeViewState extends State<HomeView> {
 
     final List<Widget> tabBarView = [
       _cats == null || _cats.isEmpty
-          ? AltContent(tabIndex)
+          ? GestureDetector(child: AltContent(tabIndex),onTap: ()async => await _getPets(),)
           : AnimatedListView(
               items: _cats,
             ),
       _dogs == null || _dogs.isEmpty
-          ? AltContent(tabIndex)
+          ? GestureDetector(child: AltContent(tabIndex),onTap: ()async => await _getPets(),)
           : AnimatedListView(
               items: _dogs,
             ),

@@ -36,6 +36,7 @@ class SignUpController {
       _userModel.photoUrl = _logoUrl;
       _userModel.userId = userId;
       _userModel.idToken = decodedResponse[UserKeywords.idToken];
+      _userModel.isPremium = false;
       _addUserToDB(email, displayName, userId);
       await PrefsFunctions().storeUserModel();
       await ProfileController().updateProfile(displayName, _logoUrl);
@@ -53,6 +54,7 @@ class SignUpController {
           UserKeywords.email: email,
           UserKeywords.displayName: displayName,
           UserKeywords.photoUrl: _logoUrl,
+          UserKeywords.isPremium:false,
         },
       ),
     );

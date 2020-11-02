@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:pet_adoption/widgets/snack_bar.dart';
 import '../../constants.dart';
 
-class FavAdoptionButtons extends StatelessWidget {
+class FavMessageButtons extends StatelessWidget {
   final bool isFavourite;
   final Function favPressed;
   final Function messagePressed;
-  FavAdoptionButtons({this.isFavourite, this.favPressed,this.messagePressed});
+  final bool removeMessageButton;
+  FavMessageButtons({this.isFavourite, this.favPressed,this.messagePressed,this.removeMessageButton});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -54,11 +55,11 @@ class FavAdoptionButtons extends StatelessWidget {
               colorBrightness: Brightness.dark,
               child: FittedBox(
                 child: Text(
-                  'Message Owner',
+                  removeMessageButton ? 'Delete pet' : 'Message Owner',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
-              color: kAccentColor,
+              color: removeMessageButton ? Colors.red[600] : kAccentColor,
             ),
           ),
         ],

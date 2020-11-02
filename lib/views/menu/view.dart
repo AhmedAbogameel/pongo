@@ -19,7 +19,7 @@ class MenuView extends StatefulWidget {
 class _MenuViewState extends State<MenuView> {
   List<String> menuItems = [
     'Adoption',
-    'Donation \n(Coming Soon)',
+    'Donation',
     'Add pet',
     'Favorites',
     'Messages',
@@ -45,30 +45,34 @@ class _MenuViewState extends State<MenuView> {
   ];
 
   Widget buildMenuRow(int index) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(20),
-      onTap: index == 1
-          ? null
-          : () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => menuNavigator[index]));
-            },
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 24.0),
-        child: Row(
-          children: <Widget>[
-            Icon(
-              icons[index],
-              color: Colors.white.withOpacity(0.5),
-            ),
-            SizedBox(
-              width: 16.0,
-            ),
-            Text(
-              menuItems[index],
-              style: style,
-            ),
-          ],
+    return SizedBox(
+      height: sizeFromHeight(context, 10),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: index == 1
+            ? null
+            : () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => menuNavigator[index]));
+              },
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 24.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Icon(
+                icons[index],
+                color: Colors.white.withOpacity(0.5),
+              ),
+              SizedBox(
+                width: sizeFromWidth(context, 24),
+              ),
+              Text(
+                menuItems[index],
+                style: style,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -81,7 +85,7 @@ class _MenuViewState extends State<MenuView> {
 
   final style = TextStyle(
     color: Colors.white.withOpacity(0.5),
-    fontSize: 17.5,
+    fontSize: 15.0,
     fontWeight: FontWeight.w600,
   );
 
@@ -89,104 +93,103 @@ class _MenuViewState extends State<MenuView> {
 
   @override
   Widget build(BuildContext context) {
+    final double width16 = sizeFromWidth(context, 24);
     return Material(
       color: kAccentColor,
-      child: SingleChildScrollView(
-        child: Container(
-          child: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: 24.0,
-                horizontal: 20.0,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      CircleAvatar(
-                        radius: 24.0,
-                        backgroundImage: _userModel.photoUrl == null  || _userModel.photoUrl == ''
-                            ? AssetImage(logoLocation)
-                            : NetworkImage(_userModel.photoUrl),
-                      ),
-                      SizedBox(
-                        width: 16.0,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            _userModel.displayName,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 22.0,
-                            ),
+      child: Container(
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: 5,
+              horizontal: sizeFromHeight(context, 50),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    CircleAvatar(
+                      radius: 24.0,
+                      backgroundImage: _userModel.photoUrl == null  || _userModel.photoUrl == ''
+                          ? AssetImage(logoLocation)
+                          : NetworkImage(_userModel.photoUrl),
+                    ),
+                    SizedBox(
+                      width: width16,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          _userModel.displayName,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 22.0,
+                          ),
+                        ),
+                        Text(
+                          _userModel.email,
+                          style:
+                              TextStyle(color: Colors.white.withOpacity(0.5)),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: menuItems
+                      .asMap()
+                      .entries
+                      .map((mapEntry) => buildMenuRow(mapEntry.key))
+                      .toList(),
+                ),
+                Row(
+                  children: <Widget>[
+                    TextButton(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.cog,
+                            color: Colors.white.withOpacity(0.5),
+                            size: 20,
+                          ),
+                          SizedBox(
+                            width: width16,
                           ),
                           Text(
-                            _userModel.email,
-                            style:
-                                TextStyle(color: Colors.white.withOpacity(0.5)),
+                            'Settings',
+                            style: style,
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: menuItems
-                        .asMap()
-                        .entries
-                        .map((mapEntry) => buildMenuRow(mapEntry.key))
-                        .toList(),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      TextButton(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Icon(
-                              FontAwesomeIcons.cog,
-                              color: Colors.white.withOpacity(0.5),
-                              size: 20,
-                            ),
-                            SizedBox(
-                              width: 16.0,
-                            ),
-                            Text(
-                              'Settings',
-                              style: style,
-                            ),
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).push(
-                              MaterialPageRoute(builder: (_) => SettingsView()));
-                        },
-                      ),
-                      Text(
-                        '   |   ',
+                      onPressed: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (_) => SettingsView()));
+                      },
+                    ),
+                    Text(
+                      '   |   ',
+                      style: style,
+                    ),
+                    TextButton(
+                      child: Text(
+                        'Log out',
                         style: style,
                       ),
-                      TextButton(
-                        child: Text(
-                          'Log out',
-                          style: style,
-                        ),
-                        onPressed: () async {
-                          SharedPreferences _prefs =
-                              await SharedPreferences.getInstance();
-                          await _prefs.clear();
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (_) => LoginView()));
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                      onPressed: () async {
+                        SharedPreferences _prefs =
+                            await SharedPreferences.getInstance();
+                        await _prefs.clear();
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (_) => LoginView()));
+                      },
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),

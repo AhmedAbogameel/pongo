@@ -8,5 +8,5 @@ class PrefsKeyWords {
   static const String email = 'email';
   static const String userModel = 'userModel';
   static const String idToken = 'idToken';
-
+  static const String isPremium = 'isPremium';
 }

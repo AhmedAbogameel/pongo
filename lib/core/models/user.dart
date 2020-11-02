@@ -10,6 +10,7 @@ class UserSingleton {
   String userId;
   String message;
   String idToken;
+  bool isPremium;
 
   factory UserSingleton(){
     return _userModel;
@@ -23,6 +24,7 @@ class UserSingleton {
     email = json[PrefsKeyWords.email];
     userId = json[PrefsKeyWords.userId];
     idToken = json[PrefsKeyWords.idToken];
+    isPremium = json[PrefsKeyWords.isPremium];
   }
 
   Map toJson(){
@@ -32,6 +34,7 @@ class UserSingleton {
     data[PrefsKeyWords.email] = email;
     data[PrefsKeyWords.userId] = userId;
     data[PrefsKeyWords.idToken]= idToken;
+    data[PrefsKeyWords.isPremium] = isPremium;
     return data;
   }
 }

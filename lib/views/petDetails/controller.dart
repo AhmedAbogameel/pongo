@@ -44,4 +44,19 @@ class FavouriteController {
     return isFavourite;
   }
 
+  Future<void> deletePet(PetModel petModel)async{
+    String path = petModel.isCat ? 'cats' : 'dogs';
+    final response = await http.get('https://pongoo.firebaseio.com/pets/$path.json');
+    final decodedResponse = jsonDecode(response.body);
+    if(decodedResponse != null){
+      String petKey;
+      decodedResponse.forEach((key,value){
+        if(mapEquals(value, petModel.toJson())){
+          petKey = key;
+        }
+      });
+      await http.delete('https://pongoo.firebaseio.com/pets/dogs/$petKey.json');
+    }
+  }
+
 }

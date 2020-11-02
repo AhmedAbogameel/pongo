@@ -197,6 +197,7 @@ class _AddPetViewState extends State<AddPetView> {
                   String photoUrl = await ProfileController().uploadFile(path: '${_userModel.userId}/$petName',image: image);
                   bool isMale = gender == 'Male' ? true : false;
                   PetModel _petModel = PetModel(
+                    isCat: petIndex == 0,
                     age: age,
                     description: description,
                     isMale: isMale,

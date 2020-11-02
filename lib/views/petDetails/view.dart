@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pet_adoption/core/models/pet.dart';
@@ -6,7 +7,8 @@ import 'package:pet_adoption/core/models/user_model.dart';
 import 'package:pet_adoption/core/services/get_user_by_uid.dart';
 import 'package:pet_adoption/views/chat/view.dart';
 import 'package:pet_adoption/views/petDetails/controller.dart';
-import 'package:pet_adoption/views/petDetails/fav_adoption_buttons.dart';
+import 'package:pet_adoption/views/petDetails/delete_dialog.dart';
+import 'package:pet_adoption/views/petDetails/fav_message_buttons.dart';
 import 'package:pet_adoption/views/petDetails/owner_tile.dart';
 import 'package:pet_adoption/views/petDetails/pet_image.dart';
 import 'package:pet_adoption/views/petDetails/pet_info_container.dart';
@@ -39,7 +41,7 @@ class _PetDetailsViewState extends State<PetDetailsView> {
     isFavourite = await _favouriteController.checkFavourite(widget.petModel);
     setState(() {});
   }
-
+  UserSingleton _userSingleton = UserSingleton();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +62,7 @@ class _PetDetailsViewState extends State<PetDetailsView> {
               AnimatedOpacity(
                 duration: Duration(milliseconds: 300),
                 opacity: isFavourite.toString() != 'null' ? 1 : 0,
-                child: FavAdoptionButtons(
+                child: FavMessageButtons(
                   favPressed: () async {
                     isFavourite
                         ? await _favouriteController
@@ -72,7 +74,10 @@ class _PetDetailsViewState extends State<PetDetailsView> {
                     });
                   },
                   isFavourite: isFavourite,
-                  messagePressed: UserSingleton().userId == widget.petModel.userId ? null : ()=>
+                  removeMessageButton: _userSingleton.userId == widget.petModel.userId,
+                  messagePressed: _userSingleton.userId == widget.petModel.userId
+                      ? ()=> showDeleteDialog(context,widget.petModel)
+                      : ()=>
                     Navigator.of(context).push(MaterialPageRoute(builder: (_)=> ChatView(_user)))
                   ,
                 ),
@@ -85,7 +90,7 @@ class _PetDetailsViewState extends State<PetDetailsView> {
             kind: widget.petModel.kind,
             petName: widget.petModel.petName,
           ),
-          PopButton(),
+          Positioned(top: 18,left: 7,child: PopButton()),
         ],
       ),
     );

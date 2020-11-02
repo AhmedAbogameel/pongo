@@ -7,6 +7,7 @@ class PetModel {
   String photoUrl;
   int publishAt;
   String userId;
+  bool isCat;
 
   PetModel(
       {this.age,
@@ -16,7 +17,9 @@ class PetModel {
         this.petName,
         this.photoUrl,
         this.publishAt,
-        this.userId});
+        this.userId,
+        this.isCat,
+      });
 
   PetModel.fromJson(Map<String, dynamic> json) {
     age = json['age'];
@@ -27,6 +30,7 @@ class PetModel {
     photoUrl = json['photoUrl'];
     publishAt = json['publishAt'];
     userId = json['userId'];
+    isCat = json['isCat'];
   }
 
   Map<String, dynamic> toJson() {
@@ -39,6 +43,7 @@ class PetModel {
     data['photoUrl'] = this.photoUrl;
     data['publishAt'] = this.publishAt;
     data['userId'] = this.userId;
+    data['isCat'] = this.isCat;
     return data;
   }
 }

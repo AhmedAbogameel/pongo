@@ -32,6 +32,7 @@ class PrefsFunctions {
       _userModel.idToken = userPrefsInfo[PrefsKeyWords.idToken];
       _userModel.displayName = userPrefsInfo[PrefsKeyWords.displayName];
       _userModel.email = userPrefsInfo[PrefsKeyWords.email];
+      _userModel.isPremium = userPrefsInfo[PrefsKeyWords.isPremium];
     }
     int storedAccentColor = _preferences.getInt('accentColor');
     if(storedAccentColor != null){

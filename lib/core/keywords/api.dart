@@ -7,6 +7,7 @@ class UserKeywords {
   static const String localId = 'localId';
   static const String idToken = 'idToken';
   static const String profilePicture = 'profilePicture';
+  static const String isPremium = 'isPremium';
 }
 
 class PetKeywords {
