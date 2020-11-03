@@ -183,6 +183,7 @@ class _AddPetViewState extends State<AddPetView> {
                 ),
               ],
             ),
+            // premium condition
             Builder(
               builder: (ctx)=> _isLoading ? Center(child: CupertinoActivityIndicator(),) : ConfirmButton(onPressed: petIndex == null || gender == null || image == null
                   ? null

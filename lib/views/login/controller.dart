@@ -32,7 +32,7 @@ class LoginController {
       _userModel.photoUrl = decodedResponse[UserKeywords.profilePicture];
       _userModel.userId = decodedResponse[UserKeywords.localId];
       _userModel.idToken = decodedResponse[UserKeywords.idToken];
-      _userModel.isPremium = decodedResponse[UserKeywords.isPremium]
+      _userModel.isPremium = decodedResponse[UserKeywords.isPremium];
       await PrefsFunctions().storeUserModel();
       await FCM().setFCM();
     }

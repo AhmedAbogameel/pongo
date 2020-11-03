@@ -4,6 +4,7 @@ import 'package:pet_adoption/constants.dart';
 import 'package:pet_adoption/core/models/user.dart';
 import 'package:pet_adoption/views/login/view.dart';
 import 'package:pet_adoption/views/menu/menu_frame.dart';
+import 'package:pet_adoption/views/onBoarding/view.dart';
 
 class SplashView extends StatefulWidget {
   @override
@@ -17,7 +18,7 @@ class _SplashViewState extends State<SplashView> {
       Duration(seconds: 3),
       () => Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (_) => UserSingleton().userId == null ? LoginView() : MenuFrame(),
+          builder: (_) => UserSingleton().userId == null ? OnBoardingView() : MenuFrame(),
         ),
       ),
     );
