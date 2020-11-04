@@ -52,14 +52,14 @@ class _CheckoutViewState extends State<CheckoutView> {
                         inputField(
                             textInputType: TextInputType.number,
                             textInputAction: TextInputAction.next,
-                            hint: '42424242424242',
+                            hint: '4242424242424242',
                             validator: (value) {
                               if (value.isEmpty)
                                 return 'Invalid Field';
-                              else if (value.length < 12)
-                                return 'Card Number Must be above 12 number';
+                              else if (value.length <= 13)
+                                return 'Card Number Must be above 13 number';
                             },
-                            onSaved: (value) => cardNumber = value,
+                            onSaved: (value) => cardNumber = value.trim(),
                         ),
                       ],
                     ),
@@ -173,12 +173,12 @@ class _CheckoutViewState extends State<CheckoutView> {
                       cvv: cvv,
                     );
                     bool response = await CheckoutController()
-                        .makePayment(paymentCard, donationAmount* 100);
+                        .makePayment(paymentCard, donationAmount * 100);
                     if (response)
                       showDonationDialog(context);
                     else
                       showSnackBar(ctx,
-                          title: 'Invalid Request', onPressed: () {},
+                          title: 'Invalid Request',label: '', onPressed: () {},
                       );
                     setState(()=> _isLoading = false);
                   }

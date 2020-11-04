@@ -34,13 +34,15 @@ class CheckoutController {
         return decodedResponse['token'];
         break;
       default:
-        throw Exception('Card Invalid');
+        return 'Card Invalid';
         break;
     }
   }
 
   Future<bool> makePayment(PaymentCardModel paymentCard,int amount)async{
     String token = await _getToken(paymentCard);
+    if(token == 'Card Invalid')
+      return false;
     Map<String, dynamic> body = {
       'source' : {
         'type' : 'token',
