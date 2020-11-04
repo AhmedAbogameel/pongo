@@ -8,12 +8,12 @@ Widget appBar(Function menuCallBack){
     elevation: 0.0,
     title: Column(
       children: [
-        Text('Location',style: TextStyle(fontSize: 15),),
+        Text('Location',style: TextStyle(fontSize: 15,color: kAccentColor),),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.location_on),
-            Text('Egypt',style: TextStyle(fontWeight: FontWeight.w900),),
+            Icon(Icons.location_on,color: kAccentColor,),
+            Text('Egypt',style: TextStyle(fontWeight: FontWeight.w900,color: kAccentColor),),
           ],
         )
       ],
