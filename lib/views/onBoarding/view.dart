@@ -1,7 +1,7 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
-import 'package:pet_adoption/views/onBoarding/onboarding_image.dart';
+import 'package:pet_adoption/constants.dart';
+import 'package:pet_adoption/views/onBoarding/onboarding_container.dart';
 
 class OnBoardingView extends StatefulWidget {
   @override
@@ -11,20 +11,6 @@ class OnBoardingView extends StatefulWidget {
 class _OnBoardingViewState extends State<OnBoardingView> {
   LiquidController _liquidController = LiquidController();
   int pageIndex = 0;
-  int position = 0;
-  @override
-  void initState() {
-    Timer.periodic(Duration(seconds: 5), (timer) {
-      pageIndex++;
-      _liquidController.animateToPage(page: pageIndex, duration: 1500);
-      if (pageIndex == 2) {
-        setState(() => position = 1);
-        timer.cancel();
-      }
-    });
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,13 +19,25 @@ class _OnBoardingViewState extends State<OnBoardingView> {
         fullTransitionValue: 750,
         liquidController: _liquidController,
         ignoreUserGestureWhileAnimating: true,
+        enableSlideIcon: pageIndex != 2,
+        onPageChangeCallback: (int pageIndex) =>
+            setState(() => this.pageIndex = pageIndex),
         pages: [
-          OnBoardingImage('firstPage'),
-          OnBoardingImage('secondPage'),
-          OnBoardingImage(
-            'thirdPage',
-            getStarted: true,
-            position: position,
+          OnBoardingContainer(
+            color: kBGColor,
+            text: 'Adopt Me',
+            imagePath: logoLocation,
+          ),
+          OnBoardingContainer(
+            color: kPrimaryColor,
+            text: 'Adopt Me',
+            imagePath: logoLocation,
+          ),
+          OnBoardingContainer(
+            color: kAccentColor,
+            text: 'Adopt Me',
+            imagePath: logoLocation,
+            isFinalPage: true,
           ),
         ],
       ),
