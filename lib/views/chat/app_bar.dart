@@ -1,13 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pet_adoption/core/keywords/firestore.dart';
-import 'package:pet_adoption/core/models/user.dart';
+import 'package:google_map_location_picker/google_map_location_picker.dart';
 import 'package:pet_adoption/core/models/user_model.dart';
 import 'package:pet_adoption/widgets/profile_avatar.dart';
+import 'package:pet_adoption/widgets/snack_bar.dart';
 import '../../constants.dart';
 
-Widget chatAppBar(BuildContext context,UserModel user){
+Widget chatAppBar(BuildContext context,UserModel user, {Function afterCopy}){
   final textTheme = Theme.of(context).textTheme;
   return AppBar(
     title: Row(
@@ -43,6 +43,27 @@ Widget chatAppBar(BuildContext context,UserModel user){
         })
       ],
     ),
+    actions: [
+      Builder(
+        builder: (ctx)=> IconButton(
+          // or mapMarkerAlt
+          icon: Icon(FontAwesomeIcons.mapMarkedAlt),
+          onPressed: () async {
+            LocationResult result = await showLocationPicker(
+              context, 'AIzaSyCtYNAbeu3NY7yVVn9-gM4cd1x1UbHk2Ck',
+              // initialCenter: LatLng(31.1975844, 29.9598339),
+              myLocationButtonEnabled: true,
+              layersButtonEnabled: true,
+              desiredAccuracy: LocationAccuracy.best,
+              requiredGPS: true,
+              resultCardConfirmIcon: Icon(Icons.copy),
+            );
+            FlutterClipboard.copy(result.latLng.toString());
+            showSnackBar(ctx, title: 'Location copied!', onPressed: afterCopy,label: 'Paste');
+          },
+        ),
+      ),
+    ],
     backgroundColor: kBGColor,
     iconTheme: IconThemeData(color: kAccentColor),
   );

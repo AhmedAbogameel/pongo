@@ -1,3 +1,4 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pet_adoption/constants.dart';
@@ -27,7 +28,7 @@ class _ChatViewState extends State<ChatView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: chatAppBar(context,widget.user),
+      appBar: chatAppBar(context,widget.user,afterCopy: ()=> FlutterClipboard.paste().then((value)=> messageController.text = value)),
       body: ChatBackground(
         child: Column(
           children: [

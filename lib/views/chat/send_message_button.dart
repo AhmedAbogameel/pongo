@@ -14,7 +14,6 @@ class SendMessageButton extends StatelessWidget {
   final FCM _fcm = FCM();
   @override
   Widget build(BuildContext context) {
-    print(fcmTokens);
     return Padding(
       padding: const EdgeInsets.only(bottom: 6.5),
       child: InkWell(

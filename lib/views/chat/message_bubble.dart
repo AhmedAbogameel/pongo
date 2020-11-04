@@ -1,17 +1,35 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:pet_adoption/widgets/pop_button.dart';
 import '../../constants.dart';
 
+// ignore: must_be_immutable
 class MessageBubble extends StatelessWidget {
   final bool isMe;
   final String message;
   final String userName;
   final Timestamp timestamp;
   final Key key;
-
-  const MessageBubble({this.isMe, this.message, this.userName, this.timestamp, this.key});
+  LatLng _messageLatLng;
+  Widget googleMap;
+  MessageBubble({this.isMe, this.message, this.userName, this.timestamp, this.key});
   @override
   Widget build(BuildContext context) {
+    if(message.contains('LatLng(')) {
+     List msgListed = message.split('LatLng');
+     msgListed = msgListed.join().split('(');
+     msgListed = msgListed.join().split(')');
+     msgListed = msgListed.join().split(',');
+     _messageLatLng = LatLng(double.parse(msgListed[0]), double.parse(msgListed[1]));
+     googleMap = GoogleMap(
+       zoomControlsEnabled: false,
+       initialCameraPosition: CameraPosition(target: _messageLatLng,zoom: 18),
+       markers: {Marker(markerId: MarkerId('messagePosition'),position: _messageLatLng)},
+     );
+    }
     final DateTime messageTime = timestamp.toDate();
     final String hour = messageTime.hour.toString().padLeft(2,'0');
     final String minute = messageTime.minute.toString().padLeft(2,'0');
@@ -19,7 +37,7 @@ class MessageBubble extends StatelessWidget {
       mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Container(
-          width: sizeFromWidth(context, 1.7),
+          width: _messageLatLng == null ? sizeFromWidth(context, 1.7) : sizeFromWidth(context, 1.2),
           margin: EdgeInsets.all(10),
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.all(12),
@@ -37,7 +55,33 @@ class MessageBubble extends StatelessWidget {
                   Text('$hour:$minute',style: TextStyle(color: Colors.black54),),
                 ],
               ),
-              Text(message,style: TextStyle(fontSize: 17,color: isMe ? kAccentColor : kPrimaryColor),),
+              message.contains('LatLng(') && message.contains(',') && message.contains(')') ?
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: InkWell(
+                  child: SizedBox(
+                    height: 300,
+                    child: ClipRRect(
+                      borderRadius:  BorderRadius.circular(20),
+                      child: AbsorbPointer(
+                        absorbing: true,
+                        child: googleMap,
+                      ),
+                    ),
+                  ),
+                  onTap: ()=> showCupertinoDialog(context: context, builder: (_)=> Material(
+                    child: Stack(
+                      children: [
+                        googleMap,
+                        Positioned(top: 10,left: 10,child: PopButton()),
+                      ],
+                    ),
+                  )),
+                ),
+              )
+                  : Text(message,style: TextStyle(fontSize: 17,color: isMe ? kAccentColor : kPrimaryColor),),
+              if(_messageLatLng != null)
+                Text('Tap for more options')
             ],
           ),
           decoration: BoxDecoration(
@@ -49,7 +93,8 @@ class MessageBubble extends StatelessWidget {
                 topRight: Radius.circular(15),
                 bottomLeft: !isMe ? Radius.circular(0) : Radius.circular(15),
                 bottomRight: !isMe ? Radius.circular(15) : Radius.circular(0),
-              )),
+              ),
+          ),
         ),
       ],
     );
