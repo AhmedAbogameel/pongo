@@ -4,6 +4,7 @@ import 'package:pet_adoption/constants.dart';
 import 'package:pet_adoption/core/models/user.dart';
 import 'package:pet_adoption/views/addPet/view.dart';
 import 'package:pet_adoption/views/adoption/view.dart';
+import 'package:pet_adoption/views/donation/view.dart';
 import 'package:pet_adoption/views/favourite/view.dart';
 import 'package:pet_adoption/views/login/view.dart';
 import 'package:pet_adoption/views/messages/view.dart';
@@ -37,7 +38,7 @@ class _MenuViewState extends State<MenuView> {
 
   List<Widget> menuNavigator = [
     AdoptionView(),
-    Container(),
+    DonationView(),
     AddPetView(),
     FavouriteView(),
     MessagesView(),
@@ -49,12 +50,9 @@ class _MenuViewState extends State<MenuView> {
       height: sizeFromHeight(context, 10),
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
-        onTap: index == 1
-            ? null
-            : () {
+        onTap:()=>
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => menuNavigator[index]));
-              },
+                    MaterialPageRoute(builder: (_) => menuNavigator[index])),
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 24.0),
           child: Row(

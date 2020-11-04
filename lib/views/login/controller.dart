@@ -32,7 +32,8 @@ class LoginController {
       _userModel.photoUrl = decodedResponse[UserKeywords.profilePicture];
       _userModel.userId = decodedResponse[UserKeywords.localId];
       _userModel.idToken = decodedResponse[UserKeywords.idToken];
-      _userModel.isPremium = decodedResponse[UserKeywords.isPremium];
+      final response = await http.get('https://pongoo.firebaseio.com/users/${_userModel.userId}/isPremium.json');
+      _userModel.isPremium = jsonDecode(response.body);
       await PrefsFunctions().storeUserModel();
       await FCM().setFCM();
     }

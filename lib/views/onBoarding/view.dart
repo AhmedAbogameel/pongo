@@ -33,8 +33,6 @@ class _OnBoardingViewState extends State<OnBoardingView> {
         fullTransitionValue: 750,
         liquidController: _liquidController,
         ignoreUserGestureWhileAnimating: true,
-        // enableSlideIcon: true,
-        // slideIconWidget: Icon(Icons.arrow_forward_ios_outlined,color: kAccentColor,size: 30,),
         pages: [
           OnBoardingImage('firstPage'),
           OnBoardingImage('secondPage'),

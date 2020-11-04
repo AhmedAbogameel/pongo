@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pet_adoption/constants.dart';
 import 'package:pet_adoption/core/models/pet.dart';
 import 'package:pet_adoption/core/models/user.dart';
+import 'package:pet_adoption/views/addPet/access_dialog.dart';
 import 'package:pet_adoption/views/addPet/controller.dart';
 import 'package:pet_adoption/views/home/squared_button.dart';
 import 'package:pet_adoption/views/menu/menu_frame.dart';
@@ -24,12 +25,19 @@ class AddPetView extends StatefulWidget {
 class _AddPetViewState extends State<AddPetView> {
   bool _isLoading = false;
   int petIndex;
-  String gender,petName,kind,description;
+  String gender, petName, kind, description;
   int age;
   int descriptionLength = 0;
   File image;
-  UserSingleton _userModel = UserSingleton();
+  UserSingleton _userSingleton = UserSingleton();
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () => showAccessDeniedDialog(context));
+  }
+
   @override
   Widget build(BuildContext context) {
     // ignore: deprecated_member_use
@@ -39,21 +47,25 @@ class _AddPetViewState extends State<AddPetView> {
       body: Form(
         key: _globalKey,
         child: ListView(
-          padding: EdgeInsets.fromLTRB(25,25,25,0),
+          padding: EdgeInsets.fromLTRB(25, 25, 25, 0),
           children: [
             Text(
               'Pet Photo',
               style: titleStyle,
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 12,),
+            SizedBox(
+              height: 12,
+            ),
             GestureDetector(
               child: CircleAvatar(
                 backgroundColor: kAccentColor.withOpacity(0.7),
                 radius: sizeFromHeight(context, 8),
-                backgroundImage: AssetImage(image == null ? logoLocation : image.path),
+                backgroundImage:
+                    AssetImage(image == null ? logoLocation : image.path),
               ),
-              onTap: () async => image = await ImagePicker.pickImage(source: ImageSource.gallery),
+              onTap: () async => image =
+                  await ImagePicker.pickImage(source: ImageSource.gallery),
             ),
             Text(
               'Name',
@@ -63,7 +75,7 @@ class _AddPetViewState extends State<AddPetView> {
                 textInputType: TextInputType.name,
                 hint: 'Pongo',
                 textInputAction: TextInputAction.next,
-                onSaved: (v)=> petName = v,
+                onSaved: (v) => petName = v,
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter your pet Name';
@@ -77,7 +89,7 @@ class _AddPetViewState extends State<AddPetView> {
                 textInputType: TextInputType.name,
                 hint: 'Bulldog',
                 textInputAction: TextInputAction.next,
-                onSaved: (v)=> kind = v,
+                onSaved: (v) => kind = v,
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter your pet kind';
@@ -88,10 +100,10 @@ class _AddPetViewState extends State<AddPetView> {
               style: titleStyle,
             ),
             inputField(
-              hint: '2 years old',
+                hint: '2 years old',
                 textInputAction: TextInputAction.next,
                 textInputType: TextInputType.number,
-                onSaved: (v)=> age = int.parse(v),
+                onSaved: (v) => age = int.parse(v),
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter your pet age';
@@ -108,7 +120,7 @@ class _AddPetViewState extends State<AddPetView> {
             inputField(
               textInputType: TextInputType.name,
               hint: 'Why you post this ?',
-              onSaved: (v)=> description = v,
+              onSaved: (v) => description = v,
               onChanged: (value) {
                 if (value.length <= 200)
                   setState(() {
@@ -185,40 +197,68 @@ class _AddPetViewState extends State<AddPetView> {
             ),
             // premium condition
             Builder(
-              builder: (ctx)=> _isLoading ? Center(child: CupertinoActivityIndicator(),) : ConfirmButton(onPressed: petIndex == null || gender == null || image == null
-                  ? null
-                  : () async {
-                if (_globalKey.currentState.validate()) {
-                  setState(() {
-                    _isLoading = true;
-                  });
-                  hideStatusBar();
-                  _globalKey.currentState.save();
-                  String _path = petIndex == 0 ? 'cats' : 'dogs';
-                  String photoUrl = await ProfileController().uploadFile(path: '${_userModel.userId}/$petName',image: image);
-                  bool isMale = gender == 'Male' ? true : false;
-                  PetModel _petModel = PetModel(
-                    isCat: petIndex == 0,
-                    age: age,
-                    description: description,
-                    isMale: isMale,
-                    kind: kind,
-                    petName: petName,
-                    photoUrl: photoUrl,
-                    publishAt: DateTime.now().millisecondsSinceEpoch,
-                    userId: _userModel.userId,
-                  );
-                  String message = await AddPetController().addPet(_path, _petModel);
-                  showSnackBar(ctx,title: message, onPressed: (){},label: '');
-                  setState(() {
-                    _isLoading = false;
-                  });
-                  if(message == 'Done'){
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=> MenuFrame()));
-                  }
-                }
-              },),
-            )
+              builder: (ctx) => _isLoading
+                  ? Center(
+                      child: CupertinoActivityIndicator(),
+                    )
+                  : ConfirmButton(
+                      onPressed: petIndex == null ||
+                              gender == null ||
+                              image == null ||
+                              !_userSingleton.isPremium
+                          ? null
+                          : () async {
+                              if (_globalKey.currentState.validate()) {
+                                setState(() {
+                                  _isLoading = true;
+                                });
+                                hideStatusBar();
+                                _globalKey.currentState.save();
+                                String _path = petIndex == 0 ? 'cats' : 'dogs';
+                                String photoUrl = await ProfileController()
+                                    .uploadFile(
+                                        path:
+                                            '${_userSingleton.userId}/$petName',
+                                        image: image);
+                                bool isMale = gender == 'Male' ? true : false;
+                                PetModel _petModel = PetModel(
+                                  isCat: petIndex == 0,
+                                  age: age,
+                                  description: description,
+                                  isMale: isMale,
+                                  kind: kind,
+                                  petName: petName,
+                                  photoUrl: photoUrl,
+                                  publishAt:
+                                      DateTime.now().millisecondsSinceEpoch,
+                                  userId: _userSingleton.userId,
+                                );
+                                String message = await AddPetController()
+                                    .addPet(_path, _petModel);
+                                showSnackBar(ctx,
+                                    title: message,
+                                    onPressed: () {},
+                                    label: '');
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                                if (message == 'Done') {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (_) => MenuFrame()));
+                                }
+                              }
+                            },
+                    ),
+            ),
+            if (!_userSingleton.isPremium)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Text(
+                  'You have no permission to add a pet contact the developer to give you access',
+                  textAlign: TextAlign.center,
+                ),
+              ),
           ],
         ),
       ),

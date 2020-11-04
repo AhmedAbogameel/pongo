@@ -32,6 +32,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
   void dispose() {
     super.dispose();
     _rotationController.dispose();
+    _globalKey.currentState.deactivate();
   }
   double _logoHeight = 3;
   @override
