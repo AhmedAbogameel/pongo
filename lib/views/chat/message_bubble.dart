@@ -37,7 +37,7 @@ class MessageBubble extends StatelessWidget {
                   Text('$hour:$minute',style: TextStyle(color: Colors.black54),),
                 ],
               ),
-              Text(message,style: TextStyle(fontSize: 25,color: isMe ? kAccentColor : kPrimaryColor),),
+              Text(message,style: TextStyle(fontSize: 17,color: isMe ? kAccentColor : kPrimaryColor),),
             ],
           ),
           decoration: BoxDecoration(

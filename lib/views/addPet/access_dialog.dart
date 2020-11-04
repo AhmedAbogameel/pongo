@@ -12,7 +12,7 @@ void showAccessDeniedDialog(context) {
             'ACCESS DENIED',
             style: TextStyle(color: Colors.red[600]),
           ),
-          content: Text('Contact the developer to have a premium account'),
+          content: Text('Contact us to have a premium account'),
           actions: [
             FlatButton(
                 child: Text(
