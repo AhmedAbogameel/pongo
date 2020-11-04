@@ -51,12 +51,12 @@ class _PetDetailsViewState extends State<PetDetailsView> {
             children: [
               PetImage(widget.petModel.photoUrl),
               Spacer(),
-              OwnerTile(widget.petModel.userId),
+              OwnerTile(widget.petModel.userId,widget.petModel.publishAt),
               Text(
                 widget.petModel.description,
                 // ignore: deprecated_member_use
                 style: Theme.of(context).textTheme.body1,
-                textAlign: TextAlign.start,
+                textAlign: TextAlign.center,
               ),
               Spacer(),
               AnimatedOpacity(

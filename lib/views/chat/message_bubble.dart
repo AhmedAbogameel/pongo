@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:pet_adoption/widgets/pop_button.dart';
 import '../../constants.dart';
 
@@ -30,9 +31,7 @@ class MessageBubble extends StatelessWidget {
        markers: {Marker(markerId: MarkerId('messagePosition'),position: _messageLatLng)},
      );
     }
-    final DateTime messageTime = timestamp.toDate();
-    final String hour = messageTime.hour.toString().padLeft(2,'0');
-    final String minute = messageTime.minute.toString().padLeft(2,'0');
+    var sentAt = DateFormat.jm().format(DateTime.fromMillisecondsSinceEpoch(timestamp.millisecondsSinceEpoch));
     return Row(
       mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
@@ -52,7 +51,9 @@ class MessageBubble extends StatelessWidget {
                     style:
                     TextStyle(fontWeight: FontWeight.w900, color: Colors.black),
                   ),
-                  Text('$hour:$minute',style: TextStyle(color: Colors.black54),),
+                  Text(
+                    '$sentAt'
+                    ,style: TextStyle(color: Colors.black54),),
                 ],
               ),
               message.contains('LatLng(') && message.contains(',') && message.contains(')') ?

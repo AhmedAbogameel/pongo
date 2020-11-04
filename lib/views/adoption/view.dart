@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:pet_adoption/core/keywords/api.dart';
 import 'package:pet_adoption/core/models/pet.dart';
 import 'package:pet_adoption/core/models/user.dart';
 import 'package:pet_adoption/views/home/alt_content.dart';
@@ -26,9 +27,9 @@ class _AdoptionViewState extends State<AdoptionView> {
     _getPets();
   }
 
-  void _getPets() async {
+  Future<void> _getPets() async {
     UserSingleton _user = UserSingleton();
-    _pets = await _homeController.getPets('users/${_user.userId}/myAdoption');
+    _pets = await _homeController.getPets('users/${_user.userId}/${PetKeywords.myAdoption}');
     setState(() {
       _isLoading = false;
     });
@@ -36,20 +37,23 @@ class _AdoptionViewState extends State<AdoptionView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: defaultAppBar(context, title: 'My Adoption List'),
-      body: _isLoading
-          ? Center(
-              child: CupertinoActivityIndicator(),
-            )
-          : (_pets.isEmpty || _pets == null
-              ? Container(
-                  alignment: Alignment.center,
-                  width: double.infinity,
-                  child: AltContent(randomNumber))
-              : AnimatedListView(
-                  items: _pets,
-                )),
+    return RefreshIndicator(
+      onRefresh: _getPets,
+      child: Scaffold(
+        appBar: defaultAppBar(context, title: 'My Adoption List'),
+        body: _isLoading
+            ? Center(
+                child: CupertinoActivityIndicator(),
+              )
+            : (_pets.isEmpty || _pets == null
+                ? Container(
+                    alignment: Alignment.center,
+                    width: double.infinity,
+                    child: AltContent(randomNumber))
+                : AnimatedListView(
+                    items: _pets,
+                  )),
+      ),
     );
   }
 }

@@ -35,14 +35,10 @@ Widget chatAppBar(BuildContext context,UserModel user, {Function afterCopy}){
         Spacer(),
       ],
     ),
-    leading: Row(
-      children: [
-        IconButton(icon: Icon(Icons.arrow_back_ios_outlined), onPressed: ()async{
-          await Future.delayed(Duration.zero,()=> FocusScope.of(context).unfocus());
-          Navigator.pop(context);
-        })
-      ],
-    ),
+    leading: IconButton(icon: Icon(Icons.arrow_back_ios_outlined), onPressed: ()async{
+      await Future.delayed(Duration.zero,()=> FocusScope.of(context).unfocus());
+      Navigator.pop(context);
+    }),
     actions: [
       Builder(
         builder: (ctx)=> IconButton(
