@@ -5,11 +5,11 @@ import '../../constants.dart';
 
 class OnBoardingContainer extends StatelessWidget {
   final Color color;
-  final String imagePath;
+  final String image;
   final bool isFinalPage;
   final String text;
   OnBoardingContainer(
-      {@required this.imagePath,
+      {@required this.image,
       @required this.color,
       this.isFinalPage = false,
       @required this.text,
@@ -23,12 +23,12 @@ class OnBoardingContainer extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Image.asset(imagePath),
+          Image.asset('assets/images/onBoarding/$image.png'),
           // ignore: deprecated_member_use
           !isFinalPage
               ? Text(
                   text,
-                  style: Theme.of(context).textTheme.title,
+                  style: Theme.of(context).textTheme.title.copyWith(color: color==kAccentColor ? kBGColor : kAccentColor),
                   textAlign: TextAlign.center,
                 )
               : AnimationConfiguration.staggeredList(

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:pet_adoption/core/models/pet.dart';
 import 'package:pet_adoption/views/menu/menu_frame.dart';
 import 'package:pet_adoption/views/petDetails/controller.dart';
-import 'package:pet_adoption/widgets/snack_bar.dart';
 
 void showDeleteDialog(BuildContext context,PetModel petModel){
   showCupertinoDialog(context: context, builder: (_)=> CupertinoAlertDialog(

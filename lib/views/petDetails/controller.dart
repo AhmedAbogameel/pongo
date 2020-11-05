@@ -54,7 +54,7 @@ class FavouriteController {
           petKey = key;
         }
       });
-      await http.delete('https://pongoo.firebaseio.com/pets/dogs/$petKey.json');
+      await http.delete('https://pongoo.firebaseio.com/pets/$path/$petKey.json');
     }
     final _adoptionUrl = 'https://pongoo.firebaseio.com/users/${UserSingleton().userId}/${PetKeywords.myAdoption}.json';
     final adoptionResponse = await http.get(_adoptionUrl);

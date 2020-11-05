@@ -19,24 +19,34 @@ class _OnBoardingViewState extends State<OnBoardingView> {
         fullTransitionValue: 750,
         liquidController: _liquidController,
         ignoreUserGestureWhileAnimating: true,
-        enableSlideIcon: pageIndex != 2,
+        positionSlideIcon: 0.35,
+        slideIconWidget: Icon(
+          Icons.arrow_forward_ios_outlined,
+          color: pageIndex == 0 ? kBGColor : kAccentColor,
+        ),
+        enableSlideIcon: pageIndex != 3,
         onPageChangeCallback: (int pageIndex) =>
             setState(() => this.pageIndex = pageIndex),
         pages: [
           OnBoardingContainer(
+            color: kAccentColor,
+            text: 'Search for a new friend',
+            image: 'cuteCat',
+          ),
+          OnBoardingContainer(
             color: kBGColor,
-            text: 'Adopt Me',
-            imagePath: logoLocation,
+            text: 'Post your pet for adoption',
+            image: 'sweetyDog',
           ),
           OnBoardingContainer(
             color: kPrimaryColor,
-            text: 'Adopt Me',
-            imagePath: logoLocation,
+            text: 'Message owner to make a deal with.',
+            image: 'cuteBulldog',
           ),
           OnBoardingContainer(
             color: kAccentColor,
             text: 'Adopt Me',
-            imagePath: logoLocation,
+            image: 'adoptPet',
             isFinalPage: true,
           ),
         ],

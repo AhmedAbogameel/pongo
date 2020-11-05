@@ -58,11 +58,14 @@ class _AddPetViewState extends State<AddPetView> {
               height: 12,
             ),
             GestureDetector(
-              child: CircleAvatar(
-                backgroundColor: kAccentColor.withOpacity(0.7),
-                radius: sizeFromHeight(context, 8),
-                backgroundImage:
-                    AssetImage(image == null ? logoLocation : image.path),
+              child: Container(
+                height: sizeFromHeight(context,4),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: AssetImage(image == null ? logoLocation : image.path)
+                  )
+                ),
               ),
               onTap: () async => image =
                   await ImagePicker.pickImage(source: ImageSource.gallery),

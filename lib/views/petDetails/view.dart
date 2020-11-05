@@ -39,7 +39,7 @@ class _PetDetailsViewState extends State<PetDetailsView> {
 
   void _checkFavourite() async {
     isFavourite = await _favouriteController.checkFavourite(widget.petModel);
-    setState(() {});
+    setState((){});
   }
   UserSingleton _userSingleton = UserSingleton();
   @override
@@ -69,9 +69,7 @@ class _PetDetailsViewState extends State<PetDetailsView> {
                             .removeFavourite(widget.petModel)
                         : await _favouriteController
                             .addFavourite(widget.petModel);
-                    setState(() {
-                      isFavourite = !isFavourite;
-                    });
+                    setState(()=> isFavourite = !isFavourite);
                   },
                   isFavourite: isFavourite,
                   removeMessageButton: _userSingleton.userId == widget.petModel.userId,

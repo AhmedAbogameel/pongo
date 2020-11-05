@@ -26,7 +26,7 @@ Widget appBar(Function menuCallBack){
     leading: IconButton(
       icon: Icon(
         Icons.menu,
-        color: Colors.black,
+        color: kAccentColor,
       ),
       onPressed: menuCallBack,
     ),

@@ -108,6 +108,7 @@ class _MenuViewState extends State<MenuView> {
                   children: <Widget>[
                     CircleAvatar(
                       radius: 24.0,
+                      backgroundColor: kPrimaryColor,
                       backgroundImage: _userModel.photoUrl == null  || _userModel.photoUrl == ''
                           ? AssetImage(logoLocation)
                           : NetworkImage(_userModel.photoUrl),

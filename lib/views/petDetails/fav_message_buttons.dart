@@ -18,6 +18,7 @@ class FavMessageButtons extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          if(!removeMessageButton)
           Container(
             height: sizeFromHeight(context, 13),
             child: Builder(

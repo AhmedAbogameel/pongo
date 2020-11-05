@@ -59,8 +59,8 @@ class _ProfileViewState extends State<ProfileView> {
             GestureDetector(
               child: CircleAvatar(
                 backgroundColor: kAccentColor.withOpacity(0.7),
-                radius: sizeFromHeight(context, 8),
-                backgroundImage: AssetImage(photoUrl == '' || photoUrl == null || image == null ? logoLocation : image.path),
+                radius: sizeFromHeight(context, 5),
+                backgroundImage: image == null ? NetworkImage(photoUrl) : AssetImage(image.path),
               ),
               onTap: ()async {
                 image = await ImagePicker.pickImage(source: ImageSource.gallery);
