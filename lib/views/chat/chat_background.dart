@@ -10,11 +10,12 @@ class ChatBackground extends StatelessWidget {
       child: child,
       decoration: BoxDecoration(
         image: DecorationImage(
-            colorFilter: ColorFilter.mode(kPrimaryColor, BlendMode.color),
-            image: NetworkImage(
-              'https://i.pinimg.com/564x/92/2e/52/922e52869305a8eec5a96f421725b353.jpg',
-                // 'https://i.pinimg.com/originals/ca/cb/fc/cacbfcff3d9472212d9c3ffbb4085ced.jpg',
-            ),
+            colorFilter: ColorFilter.mode(kAccentColor, BlendMode.color),
+            image: AssetImage('assets/images/chatBG.jpg'),
+            // NetworkImage(
+            //   'https://i.pinimg.com/564x/92/2e/52/922e52869305a8eec5a96f421725b353.jpg',
+            //     // 'https://i.pinimg.com/originals/ca/cb/fc/cacbfcff3d9472212d9c3ffbb4085ced.jpg',
+            // ),
             fit: BoxFit.cover,
         ),
       ),

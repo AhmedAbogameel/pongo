@@ -68,6 +68,7 @@ class _AddPetViewState extends State<AddPetView> {
                 ),
               ),
               onTap: () async => image =
+                  // ignore: deprecated_member_use
                   await ImagePicker.pickImage(source: ImageSource.gallery),
             ),
             Text(

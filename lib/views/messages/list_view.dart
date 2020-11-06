@@ -4,7 +4,8 @@ import 'chat_tile.dart';
 
 class ChatsTileList extends StatelessWidget {
   final List<String> allUsers;
-  ChatsTileList(this.allUsers);
+  final List timeStamp;
+  ChatsTileList(this.allUsers,this.timeStamp);
   @override
   Widget build(BuildContext context) {
     return AnimationLimiter(
@@ -18,7 +19,7 @@ class ChatsTileList extends StatelessWidget {
               child: SlideAnimation(
                 verticalOffset: 100.0,
                 child: FadeInAnimation(
-                  child: ChatTile(allUsers[listIndex]),
+                  child: ChatTile(allUsers[listIndex],timeStamp[listIndex]),
                 ),
               ),
             ),

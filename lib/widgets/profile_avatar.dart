@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pet_adoption/core/models/user.dart';
 import '../constants.dart';
 
 class ProfileAvatar extends StatelessWidget {

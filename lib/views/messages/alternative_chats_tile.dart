@@ -16,6 +16,7 @@ class AlternativeChatsTile extends StatelessWidget {
           ),
           Text(
             'No Owners to deal with',
+            // ignore: deprecated_member_use
             style: Theme.of(context).textTheme.subtitle,
           ),
         ],

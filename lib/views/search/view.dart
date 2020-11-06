@@ -21,6 +21,7 @@ class _SearchViewState extends State<SearchView> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: kAccentColor),
         backgroundColor: kBGColor,
+        // ignore: deprecated_member_use
         title: Text('Search by Name',style: Theme.of(context).textTheme.subtitle,),
       ),
       body: Column(
@@ -51,6 +52,7 @@ class _SearchViewState extends State<SearchView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.search_off_rounded,color: kAccentColor.withOpacity(0.7),size: sizeFromHeight(context, 5),),
+              // ignore: deprecated_member_use
               Text('No Result',style: Theme.of(context).textTheme.subtitle,),
             ],
           ) : AnimatedListView(items: searchedPets)),

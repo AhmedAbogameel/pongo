@@ -1,6 +1,6 @@
-# pet_adoption
+# Pongo
 
-A new Flutter application.
+A Pet Adoption Application with FLUTTER.
 
 ## Getting Started
 

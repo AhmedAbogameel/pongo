@@ -63,6 +63,7 @@ class _ProfileViewState extends State<ProfileView> {
                 backgroundImage: image == null ? NetworkImage(photoUrl) : AssetImage(image.path),
               ),
               onTap: ()async {
+                // ignore: deprecated_member_use
                 image = await ImagePicker.pickImage(source: ImageSource.gallery);
                 setState(() {});
               },

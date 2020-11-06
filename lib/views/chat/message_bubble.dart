@@ -82,13 +82,13 @@ class MessageBubble extends StatelessWidget {
               )
                   : Text(message,style: TextStyle(fontSize: 17,color: isMe ? kAccentColor : kPrimaryColor),),
               if(_messageLatLng != null)
-                Text('Tap for more options')
+                Text('Tap for more options',style: TextStyle(color: isMe ? kAccentColor : kPrimaryColor),)
             ],
           ),
           decoration: BoxDecoration(
               color: isMe
-                  ? kPrimaryColor.withOpacity(0.75)
-                  : kAccentColor.withOpacity(0.75),
+                  ? kPrimaryColor.withOpacity(0.9)
+                  : kAccentColor.withOpacity(0.9),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15),
                 topRight: Radius.circular(15),

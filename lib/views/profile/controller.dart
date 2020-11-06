@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:pet_adoption/core/keywords/api.dart';
 import 'package:pet_adoption/core/models/user.dart';
 import 'package:http/http.dart' as http;

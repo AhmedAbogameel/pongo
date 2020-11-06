@@ -42,10 +42,12 @@ class _OwnerTileState extends State<OwnerTile> {
             leading: ProfileAvatar(_userModel.photoUrl),
             // ignore: deprecated_member_use
             title: Text(_userModel.displayName,
+                // ignore: deprecated_member_use
                 style: Theme.of(context).textTheme.title, softWrap: true),
             // ignore: deprecated_member_use
             subtitle: Text(
               'Owner',
+              // ignore: deprecated_member_use
               style: Theme.of(context).textTheme.body1,
             ),
             trailing: Padding(
@@ -53,6 +55,7 @@ class _OwnerTileState extends State<OwnerTile> {
               // ignore: deprecated_member_use
               child: Text(
                 '${DateFormat.yMMMd().format(publishAt)}',
+                // ignore: deprecated_member_use
                 style: Theme.of(context).textTheme.body1,
               ),
             ),

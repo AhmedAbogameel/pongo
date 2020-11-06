@@ -1,19 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_adoption/constants.dart';
 import 'package:pet_adoption/core/keywords/firestore.dart';
 import 'package:pet_adoption/core/models/user.dart';
 import 'package:pet_adoption/views/messages/alternative_chats_tile.dart';
-import 'package:pet_adoption/views/messages/chat_tile.dart';
-
 import 'list_view.dart';
 
+// ignore: must_be_immutable
 class MessagesView extends StatelessWidget {
   List<String> allUsers = [];
+  List usersTimeStamps = [];
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -21,6 +18,7 @@ class MessagesView extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             'Messages',
+            // ignore: deprecated_member_use
             style: textTheme.subtitle,
           ),
           backgroundColor: kBGColor,
@@ -38,14 +36,19 @@ class MessagesView extends StatelessWidget {
               );
             allUsers.clear();
             if (snapShot.data.data() != null) {
-              snapShot.data.data().keys.forEach((key) {
-                allUsers.add(key);
+              Map dataSnapShots = snapShot.data.data();
+              usersTimeStamps = dataSnapShots.values.toList();
+              usersTimeStamps.sort((a,b)=> b.millisecondsSinceEpoch.compareTo(a.millisecondsSinceEpoch));
+              usersTimeStamps.forEach((element) {
+                dataSnapShots.forEach((key, value) {
+                  if(value.millisecondsSinceEpoch == element.millisecondsSinceEpoch)
+                    allUsers.add(key);
+                });
               });
             }
-            allUsers.reversed;
             return snapShot.data.data() == null
                 ? AlternativeChatsTile()
-                : ChatsTileList(allUsers);
+                : ChatsTileList(allUsers,usersTimeStamps);
           },
         ));
   }

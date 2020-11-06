@@ -45,10 +45,10 @@ class SendMessageButton extends StatelessWidget {
               FirestoreKeyWords.userName:  _userSingleton.displayName,
               FirestoreKeyWords.userId:  _userSingleton.userId,
             });
-            FirebaseFirestore.instance.collection('chats').doc(_userSingleton.userId).set({
+            FirebaseFirestore.instance.collection('chats').doc(_userSingleton.userId).update({
               wantedUserId : Timestamp.now(),
             });
-            FirebaseFirestore.instance.collection('chats').doc(wantedUserId).set({
+            FirebaseFirestore.instance.collection('chats').doc(wantedUserId).update({
               _userSingleton.userId : Timestamp.now(),
             });
             if(fcmTokens != null){
