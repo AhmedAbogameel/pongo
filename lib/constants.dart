@@ -8,7 +8,8 @@ const Color kPrimaryColor = Color.fromRGBO(189, 200, 204, 1);
 Color kAccentColor = Color.fromRGBO(56, 97, 96, 1);
 const Color kBGColor = Color.fromRGBO(244, 244, 244, 1);
 
-void hideStatusBar()=> SystemChrome.setEnabledSystemUIOverlays([]);
+// void hideStatusBar()=> SystemChrome.setEnabledSystemUIOverlays([]);
+void hideStatusBar()=> SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
 final ThemeData theme = ThemeData(
   platform: TargetPlatform.iOS,

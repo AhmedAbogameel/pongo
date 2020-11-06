@@ -1,10 +1,22 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_adoption/constants.dart';
+import 'package:pet_adoption/views/forgetPassword/controller.dart';
 import 'package:pet_adoption/widgets/confirm_button.dart';
+import 'package:pet_adoption/widgets/snack_bar.dart';
 import 'package:pet_adoption/widgets/text_field.dart';
 
-class ForgetPasswordView extends StatelessWidget {
+class ForgetPasswordView extends StatefulWidget {
+  @override
+  _ForgetPasswordViewState createState() => _ForgetPasswordViewState();
+}
+
+class _ForgetPasswordViewState extends State<ForgetPasswordView> {
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
+
+  String _email;
+  bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
@@ -43,8 +55,8 @@ class ForgetPasswordView extends StatelessWidget {
             child: inputField(
               hint: 'example@mail.com',
               icon: Icons.email,
-              textInputType: TextInputType.number,
-              onSaved: (String value) {},
+              textInputType: TextInputType.emailAddress,
+              onSaved: (String value)=> _email = value.trim(),
               validator: (String value) {
                 if (value.isEmpty) {
                   return 'Invalid email';
@@ -54,15 +66,21 @@ class ForgetPasswordView extends StatelessWidget {
               },
             ),
           ),
-          ConfirmButton(
-            title: 'Reset password',
-            onPressed: () {
-              _globalKey.currentState.save();
-              if (_globalKey.currentState.validate()) {
-                Navigator.pop(context);
-                hideStatusBar();
-              }
-            },
+          Builder(
+            builder: (ctx)=> _isLoading ? CupertinoActivityIndicator() : ConfirmButton(
+              title: 'Reset password',
+              onPressed: () async {
+                _globalKey.currentState.save();
+                if (_globalKey.currentState.validate()) {
+                  FocusScope.of(context).unfocus();
+                  setState(()=> _isLoading = true);
+                  hideStatusBar();
+                  String response = await ForgetPasswordController().resetPassword(_email);
+                  showSnackBar(ctx, title: response, onPressed: (){},label: '');
+                  setState(()=> _isLoading = false);
+                }
+              },
+            ),
           ),
         ],
       ),

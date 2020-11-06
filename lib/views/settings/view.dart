@@ -115,4 +115,3 @@ class _SettingsViewState extends State<SettingsView> {
     }
   }
 }
-// share app, rate app, contact us

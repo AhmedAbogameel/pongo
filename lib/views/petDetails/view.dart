@@ -12,6 +12,7 @@ import 'package:pet_adoption/views/petDetails/fav_message_buttons.dart';
 import 'package:pet_adoption/views/petDetails/owner_tile.dart';
 import 'package:pet_adoption/views/petDetails/pet_image.dart';
 import 'package:pet_adoption/views/petDetails/pet_info_container.dart';
+import 'package:pet_adoption/views/petDetails/report_button.dart';
 import 'package:pet_adoption/widgets/pop_button.dart';
 
 class PetDetailsView extends StatefulWidget {
@@ -89,6 +90,7 @@ class _PetDetailsViewState extends State<PetDetailsView> {
             petName: widget.petModel.petName,
           ),
           Positioned(top: 18,left: 7,child: PopButton()),
+          ReportButton(widget.petModel),
         ],
       ),
     );

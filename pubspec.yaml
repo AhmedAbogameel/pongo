@@ -46,6 +46,7 @@ dependencies:
   google_maps_flutter: ^1.0.6
   google_map_location_picker: ^4.0.0
   my_fatoorah: ^2.6.5
+  screenshot: ^0.2.0
 
   firebase_core: ^0.5.0+1
   firebase_messaging: ^7.0.3

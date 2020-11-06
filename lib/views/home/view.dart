@@ -64,11 +64,7 @@ class _HomeViewState extends State<HomeView> {
     return RefreshIndicator(
       onRefresh: _getPets,
       child: Scaffold(
-        appBar: appBar(() {
-          setState(() {
-            widget.menuCallBack();
-          });
-        }),
+        appBar: appBar(()=> setState(()=> widget.menuCallBack())),
         body: AbsorbPointer(
           absorbing: widget.menuOpen,
           child: Container(
@@ -116,19 +112,16 @@ class _HomeViewState extends State<HomeView> {
                                   petIndex: 0,
                                   tabIndex: tabIndex,
                                   icon: FontAwesomeIcons.cat,
-                                  onTap: () {
-                                    setState(() {
-                                      tabIndex = 0;
-                                    });
-                                  },
-                                ),
+                                  onTap: (){
+                                    _panelController.close();
+                                    setState(() => tabIndex = 0);
+                                  }),
                                 SquaredButton(
                                   icon: FontAwesomeIcons.dog,
                                   onTap: () {
-                                    setState(() {
-                                      tabIndex = 1;
-                                    });
-                                  },
+                                    _panelController.close();
+                                    setState(() => tabIndex = 1);
+                                    },
                                   tabIndex: tabIndex,
                                   petIndex: 1,
                                 )

@@ -32,8 +32,8 @@ class _SignUpViewState extends State<SignUpView> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    super.dispose();
     _rotationController.dispose();
+    super.dispose();
   }
 
   @override

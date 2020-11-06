@@ -67,6 +67,7 @@ class FavouriteController {
         }
       });
       await http.delete('https://pongoo.firebaseio.com/users/${UserSingleton().userId}/${PetKeywords.myAdoption}/$petKey.json');
+      await http.delete(petModel.photoUrl);
     }
   }
 

@@ -25,7 +25,7 @@ class PetInfoContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // ignore: deprecated_member_use
-                Text(petName,style: Theme.of(context).textTheme.title,),
+                Text(petName,style: Theme.of(context).textTheme.title.copyWith(fontSize: 20),),
                 Icon(isMale ? FontAwesomeIcons.mars : FontAwesomeIcons.venus,color: kAccentColor,size: 30,)
               ],
             ),
@@ -33,7 +33,7 @@ class PetInfoContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // ignore: deprecated_member_use
-                Text(kind,style: Theme.of(context).textTheme.subtitle,),
+                Text(kind,style: Theme.of(context).textTheme.subtitle.copyWith(fontSize: 18),),
                 // ignore: deprecated_member_use
                 Text('$age years old',style: Theme.of(context).textTheme.body1,),
               ],

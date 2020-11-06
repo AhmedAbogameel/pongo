@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 import 'package:pet_adoption/core/keywords/api.dart';
 import 'package:pet_adoption/core/models/pet.dart';
@@ -15,6 +17,36 @@ class AddPetController {
       return 'Done';
     }catch(_){
       return 'Failed';
+    }
+  }
+
+  Future removeBG(File imageFile)async{
+    final apiKeyResponse = await http.get('https://pongoo.firebaseio.com/keys/removeBG.json');
+    final String apiKey = jsonDecode(apiKeyResponse.body);
+    Map<String,String> headers = {'X-Api-Key': apiKey};
+    Map<String,String> body = {
+      'crop':'true',
+      'format':'png',
+      'size' : 'auto',
+      'position':'center'
+    };
+    const url = 'https://api.remove.bg/v1.0/removebg';
+    var stream = new http.ByteStream(imageFile.openRead());
+    var length = await imageFile.length();
+    var uri = Uri.parse(url);
+    var request = new http.MultipartRequest("POST", uri,);
+    request.fields.addAll(body);
+    request.headers.addAll(headers);
+    var multipartFile = new http.MultipartFile('image_file', stream, length,
+        filename: Timestamp.now().millisecondsSinceEpoch.toString());
+    request.files.add(multipartFile);
+    var response = await request.send();
+    if(response.statusCode == 200){
+      var uInt8List;
+      await response.stream.toBytes().asStream().listen((value)=> uInt8List = value).asFuture();
+      return uInt8List;
+    }else{
+      return null;
     }
   }
 

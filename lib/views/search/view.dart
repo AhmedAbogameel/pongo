@@ -33,6 +33,7 @@ class _SearchViewState extends State<SearchView> {
                 icon: FontAwesomeIcons.search,
                 onChanged: (String value){
                   hideStatusBar();
+                  searchedPets.clear();
                   allPets.forEach((element) {
                     if(element.toJson()['petName'].contains(value)){
                       setState(() {

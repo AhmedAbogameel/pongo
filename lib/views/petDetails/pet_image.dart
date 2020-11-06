@@ -12,7 +12,7 @@ class PetImage extends StatelessWidget {
       color: kPrimaryColor,
       child: Hero(
         tag: photoUrl,
-        child: Image.network(photoUrl,fit: BoxFit.cover,),
+        child: Image.network(photoUrl,fit: BoxFit.fitHeight,height: 700,),
       ),
       alignment: Alignment.center,
     );

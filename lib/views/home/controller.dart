@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:pet_adoption/core/keywords/api.dart';
 import 'package:pet_adoption/core/models/pet.dart';
 
 class HomeController {
@@ -10,10 +11,9 @@ class HomeController {
     final decodedResponse = jsonDecode(response.body);
     if(response.statusCode == 200){
       if(decodedResponse != null)
-      decodedResponse.forEach((_ , value){
-        _pets.add(PetModel.fromJson(value));
-      });
+      decodedResponse.forEach((_ , value)=> _pets.add(PetModel.fromJson(value)));
     }
+    _pets.sort((a,b)=> b.toJson()[PetKeywords.publishAt].compareTo(a.toJson()[PetKeywords.publishAt]));
     return _pets;
   }
 }
